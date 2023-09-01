@@ -10,11 +10,13 @@ public class MainBorderPane extends BorderPane {
 		RightPart rightPart = new RightPart();
 		TopPart topPart = new TopPart();
 		BottomPart botPart = new BottomPart();
+		CenterPart centerPart = new CenterPart();
 		
 		this.setLeft(leftPart);
 		this.setRight(rightPart);
 		this.setTop(topPart);
 		this.setBottom(botPart);
+		this.setCenter(centerPart);
 	}
 	
 
