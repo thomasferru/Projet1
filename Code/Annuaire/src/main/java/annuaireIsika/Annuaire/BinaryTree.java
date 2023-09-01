@@ -1,5 +1,7 @@
 package annuaireIsika.Annuaire;
 
+import java.util.List;
+
 public class BinaryTree {
 
 	private Node root;
@@ -10,6 +12,10 @@ public class BinaryTree {
 		super();
 		this.root = new Node(root);
 	}
+	
+	//transformer la liste stagiaire en arbre binaire
+	
+	
 
 	public Node getRoot() {
 		return root;

@@ -1,5 +1,7 @@
 package annuaireIsika.Annuaire;
 
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,11 +19,20 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
         System.out.println(Stagiaire.loadFromTheFile());
+        System.out.println(fromArrayToTree(Stagiaire.loadFromTheFile()).getRoot().affich());
+        
     }
 
 
     
-    
+    public static BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
+		BinaryTree result = new BinaryTree((stagiaires.get(0)));
+		for (Stagiaire stagiaire : stagiaires) {
+			result.getRoot().ajouter(stagiaire);
+		}
+		return result;
+		
+	}
     
     public static void main(String[] args) {
         launch();
