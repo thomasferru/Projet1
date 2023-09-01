@@ -37,30 +37,5 @@ public class CenterPart extends VBox {
 }
 
 
-try (BufferedReader reader = new BufferedReader(new FileReader("./resources/STAGIAIRES.DON"))) {
-	String line;
 
-	while ((line = reader.readLine()) != null) {
-		System.out.println(line);
-
-	}
-} catch (IOException e) {
-	e.printStackTrace();
-	
-	
-	
-}
- mes donnees ressemble à ca : 
- LACROIX
- Pascale
- 91
- BOBI 5
- 2008
- *
- LAVEAU
- Valentin
- 33
- BOBI 7
- 2018
- *
- Je voudrai 
+ 
