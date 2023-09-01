@@ -53,7 +53,7 @@ public class Node {
 		return resultat;
 	}
 	
-	//recherche et renvoie un stagiaire selon son 
+	//recherche et renvoie un stagiaire selon son nom
 	
 	public Stagiaire contient(String Nom) {
 		if (this.value.getNom().equals(Nom)) {
