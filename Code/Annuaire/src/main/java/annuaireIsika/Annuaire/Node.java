@@ -3,41 +3,51 @@ package annuaireIsika.Annuaire;
 public class Node {
 	
 	//Attributs
-	private String cle;
-	private Node filsGauche;
-	private Node filsDroit;
+	private Stagiaire value;
+	private Node left;
+	private Node right;
 	
 	//Constructeur
-	public Node(String cle, Node filsGauche, Node filsDroit) {
-		this.cle = cle;
-		this.filsGauche = null;
-		this.filsDroit = null;
+
+	public Node(Stagiaire value) {
+		this.value=value;
+		right=null;
+		left=null;
 	}
+
 	
-	// Getters & setters
-
-	public String getCle() {
-		return cle;
+	
+	// getter setter
+	
+	public Stagiaire getValue() {
+		return value;
 	}
 
-	public void setCle(String cle) {
-		this.cle = cle;
+	public void setValue(Stagiaire value) {
+		this.value = value;
 	}
 
-	public Node getFilsGauche() {
-		return filsGauche;
+	public Node getLeft() {
+		return left;
 	}
 
-	public void setFilsGauche(Node filsGauche) {
-		this.filsGauche = filsGauche;
+	public void setLeft(Node left) {
+		this.left = left;
 	}
 
-	public Node getFilsDroit() {
-		return filsDroit;
+	public Node getRight() {
+		return right;
 	}
 
-	public void setFilsDroit(Node filsDroit) {
-		this.filsDroit = filsDroit;
+	public void setRight(Node right) {
+		this.right = right;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Node [value=" + value + ", left=" + left + ", right=" + right + "]";
 	}
 	
 	
