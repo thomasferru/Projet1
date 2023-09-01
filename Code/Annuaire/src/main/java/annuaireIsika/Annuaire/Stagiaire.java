@@ -15,8 +15,7 @@ public class Stagiaire {
 
 	// Contructeur a faire en fonction de valentin
 
-	public Stagiaire(String nom, String prenom, int departement, String promotion, int anneeFormation,
-			String filePath) {
+	public Stagiaire(String nom, String prenom, int departement, String promotion, int anneeFormation) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -38,43 +37,43 @@ public class Stagiaire {
 	}
 
 	public String getPrenom() {
-		return Prenom;
+		return prenom;
 	}
 
 	public void setPrenom(String prenom) {
-		Prenom = prenom;
+		prenom = prenom;
 	}
 
 	public int getDepartement() {
-		return Departement;
+		return departement;
 	}
 
 	public void setDepartement(int departement) {
-		Departement = departement;
+		departement = departement;
 	}
 
 	public String getPromotion() {
-		return Promotion;
+		return promotion;
 	}
 
 	public void setPromotion(String promotion) {
-		Promotion = promotion;
+		promotion = promotion;
 	}
 
 	public int getAnneeFormation() {
-		return AnneeFormation;
+		return anneeFormation;
 	}
 
 	public void setAnneeFormation(int anneeFormation) {
-		AnneeFormation = anneeFormation;
+		anneeFormation = anneeFormation;
 	}
 
 	@Override
 	public String toString() {
-		return "Stagiaire [nom=" + nom + ", Prenom=" + Prenom + ", Departement=" + Departement + ", Promotion="
-				+ Promotion + ", AnneeFormation=" + AnneeFormation + "]";
+		return "Stagiaire [nom=" + nom + ", Prenom=" + prenom + ", Departement=" + departement + ", Promotion="
+				+ promotion + ", AnneeFormation=" + anneeFormation + "]";
 	}
-<<<<<<< HEAD
+
 
 	public int compareTo(Stagiaire value) {
 		// TODO Auto-generated method stub
@@ -83,8 +82,6 @@ public class Stagiaire {
 	
 	
 	
-=======
->>>>>>> 178b66119fbb459b9e30ef0db6f1d3771ff14e63
 
 	String filePath = "./resources/STAGIAIRES.DON";
 
@@ -101,8 +98,8 @@ public class Stagiaire {
 			while ((line = reader.readLine()) != null) {
 				if (line.equals("*")) {
 					if (nom != null && prenom != null && departement != null && classe != null && anneeRentree != 0) {
-						Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
-						stagiaires.add(stagiaire);
+						//Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
+						//stagiaires.add(stagiaire);
 					}
 				}
 
