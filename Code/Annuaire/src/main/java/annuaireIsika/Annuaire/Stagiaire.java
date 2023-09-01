@@ -30,8 +30,6 @@ public class Stagiaire {
 		return nom;
 	}
 
-
-
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
@@ -41,7 +39,11 @@ public class Stagiaire {
 	}
 
 	public void setPrenom(String prenom) {
+
 		prenom = prenom;
+
+		this.prenom = prenom;
+
 	}
 
 	public int getDepartement() {
@@ -49,7 +51,11 @@ public class Stagiaire {
 	}
 
 	public void setDepartement(int departement) {
+
 		departement = departement;
+
+		this.departement = departement;
+
 	}
 
 	public String getPromotion() {
@@ -57,7 +63,11 @@ public class Stagiaire {
 	}
 
 	public void setPromotion(String promotion) {
+
 		promotion = promotion;
+
+		this.promotion = promotion;
+
 	}
 
 	public int getAnneeFormation() {
@@ -65,23 +75,25 @@ public class Stagiaire {
 	}
 
 	public void setAnneeFormation(int anneeFormation) {
+
 		anneeFormation = anneeFormation;
+
+		this.anneeFormation = anneeFormation;
+
 	}
 
 	@Override
 	public String toString() {
+
 		return "Stagiaire [nom=" + nom + ", Prenom=" + prenom + ", Departement=" + departement + ", Promotion="
 				+ promotion + ", AnneeFormation=" + anneeFormation + "]";
-	}
 
+	}
 
 	public int compareTo(Stagiaire value) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
-	
 
 	String filePath = "./resources/STAGIAIRES.DON";
 
@@ -92,20 +104,24 @@ public class Stagiaire {
 			String line;
 			String nom = null;
 			String prenom = null;
-			String departement = null;
+			int departement = 0;
 			String classe = null;
 			int anneeRentree = 0;
 			while ((line = reader.readLine()) != null) {
 				if (line.equals("*")) {
-					if (nom != null && prenom != null && departement != null && classe != null && anneeRentree != 0) {
-						//Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
-						//stagiaires.add(stagiaire);
+
+					if (nom != null && prenom != null && departement != 0 && classe != null && anneeRentree != 0) {
+						 Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe,
+						 anneeRentree);
+						 stagiaires.add(stagiaire);
+
+						}
 					}
+
 				}
 
 			}
-
-		} catch (Exception e) {
+		 catch (Exception e) {
 			// TODO: handle exception
 		}
 
