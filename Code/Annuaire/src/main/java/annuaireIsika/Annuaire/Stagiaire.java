@@ -23,7 +23,6 @@ public class Stagiaire {
 		this.promotion = promotion;
 		this.anneeFormation = anneeFormation;
 	}
-
 	// getter setter
 
 	public String getNom() {
@@ -39,9 +38,6 @@ public class Stagiaire {
 	}
 
 	public void setPrenom(String prenom) {
-
-		prenom = prenom;
-
 		this.prenom = prenom;
 
 	}
@@ -51,9 +47,6 @@ public class Stagiaire {
 	}
 
 	public void setDepartement(int departement) {
-
-		departement = departement;
-
 		this.departement = departement;
 
 	}
@@ -63,9 +56,6 @@ public class Stagiaire {
 	}
 
 	public void setPromotion(String promotion) {
-
-		promotion = promotion;
-
 		this.promotion = promotion;
 
 	}
@@ -75,9 +65,6 @@ public class Stagiaire {
 	}
 
 	public void setAnneeFormation(int anneeFormation) {
-
-		anneeFormation = anneeFormation;
-
 		this.anneeFormation = anneeFormation;
 
 	}
@@ -95,10 +82,11 @@ public class Stagiaire {
 		return 0;
 	}
 
-	String filePath = "./resources/STAGIAIRES.DON";
+	
 
-	public static List<Stagiaire> loadFromTheFile(String filePath) {
+	public static List<Stagiaire> loadFromTheFile() {
 		List<Stagiaire> stagiaires = new ArrayList<>();
+		String filePath = "./resources/STAGIAIRES.DON";
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 			String line;
@@ -111,20 +99,38 @@ public class Stagiaire {
 				if (line.equals("*")) {
 
 					if (nom != null && prenom != null && departement != 0 && classe != null && anneeRentree != 0) {
-						 Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe,
-						 anneeRentree);
-						 stagiaires.add(stagiaire);
+						Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
+						stagiaires.add(stagiaire);
 
-						}
+					}
+					nom = null;
+					prenom = null;
+					departement = 0;
+					classe = null;
+					anneeRentree = 0;
+				} else {
+					// Sinon, lisez les attributs du stagiaire
+					if (nom == null) {
+						nom = line;
+					} else if (prenom == null) {
+						prenom = line;
+					} else if (departement == 0) {
+						departement = Integer.parseInt(line);
+					} else if (classe == null) {
+						classe = line;
+					} else {
+						anneeRentree = Integer.parseInt(line);
 					}
 
+					if (nom != null && prenom != null && departement != 0 && classe != null && anneeRentree != 0) {
+						Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
+						stagiaires.add(stagiaire);
+					}
 				}
-
 			}
-		 catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
 		return stagiaires;
 	}
 
