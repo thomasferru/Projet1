@@ -38,3 +38,4 @@ public class BeforeScene extends VBox{
 	}
 
 }
+ // Test coucou
