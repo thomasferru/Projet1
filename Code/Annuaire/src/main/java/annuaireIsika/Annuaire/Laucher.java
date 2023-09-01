@@ -10,12 +10,12 @@ public class Laucher {
 		Stagiaire pa = new Stagiaire("ujn","deux",5,"era",5);
 		Stagiaire ul = new Stagiaire("uuhhn","deux",5,"era",5);
 		BinaryTree test = new BinaryTree(paul);
-		test.add(pal);
-		test.add(paul);
-		test.add(aul);
-		test.add(pa);
-		test.add(ul);
-		System.out.println(test.toString());
+		test.getRoot().ajouter(pal);
+		test.getRoot().ajouter(aul);
+		test.getRoot().ajouter(pa);
+		test.getRoot().ajouter(ul);
+		System.out.println(test.getRoot().affich());
+		System.out.println(test.getRoot().contient("un"));
 	}
 
 }
