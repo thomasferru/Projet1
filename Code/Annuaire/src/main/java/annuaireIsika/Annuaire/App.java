@@ -16,6 +16,7 @@ public class App extends Application {
         Scene scene = new Scene(root,500,500);
         stage.setScene(scene);
         stage.show();
+        System.out.println(Stagiaire.loadFromTheFile());
     }
 
 
