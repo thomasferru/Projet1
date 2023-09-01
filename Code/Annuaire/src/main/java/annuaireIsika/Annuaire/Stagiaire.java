@@ -85,53 +85,69 @@ public class Stagiaire {
 	
 
 	public static List<Stagiaire> loadFromTheFile() {
-		List<Stagiaire> stagiaires = new ArrayList<>();
-		String filePath = "./resources/STAGIAIRES.DON";
+	    // Crée une liste vide pour stocker les objets Stagiaire
+	    List<Stagiaire> stagiaires = new ArrayList<>();
+	    
+	    // Définit le chemin du fichier à lire
+	    String filePath = "./resources/STAGIAIRES.DON";
 
-		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-			String line;
-			String nom = null;
-			String prenom = null;
-			int departement = 0;
-			String classe = null;
-			int anneeRentree = 0;
-			while ((line = reader.readLine()) != null) {
-				if (line.equals("*")) {
+	    // Démarre un bloc try-catch pour gérer les exceptions potentielles lors de la lecture du fichier
+	    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+	        // Déclare une variable pour stocker chaque ligne lue du fichier
+	        String line;
+	        
+	        // Initialise des variables pour stocker les attributs d'un stagiaire
+	        String nom = null;
+	        String prenom = null;
+	        int departement = 0;
+	        String classe = null;
+	        int anneeRentree = 0;
 
-					if (nom != null && prenom != null && departement != 0 && classe != null && anneeRentree != 0) {
-						Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
-						stagiaires.add(stagiaire);
-
-					}
-					nom = null;
-					prenom = null;
-					departement = 0;
-					classe = null;
-					anneeRentree = 0;
-				} else {
-					// Sinon, lisez les attributs du stagiaire
-					if (nom == null) {
-						nom = line;
-					} else if (prenom == null) {
-						prenom = line;
-					} else if (departement == 0) {
-						departement = Integer.parseInt(line);
-					} else if (classe == null) {
-						classe = line;
-					} else {
-						anneeRentree = Integer.parseInt(line);
-					}
-
-					if (nom != null && prenom != null && departement != 0 && classe != null && anneeRentree != 0) {
-						Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
-						stagiaires.add(stagiaire);
-					}
-				}
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return stagiaires;
+	        // Démarre une boucle while pour lire chaque ligne du fichier
+	        while ((line = reader.readLine()) != null) {
+	            // Vérifie si la ligne actuelle est égale à "*". Si c'est le cas, cela signifie qu'un nouveau stagiaire commence.
+	            if (line.equals("*")) {
+	                // Vérifie si toutes les informations nécessaires pour créer un stagiaire sont disponibles.
+	                if (nom != null && prenom != null && departement != 0 && classe != null && anneeRentree != 0) {
+	                    // Crée un nouvel objet Stagiaire avec les informations lues et l'ajoute à la liste.
+	                    Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
+	                    stagiaires.add(stagiaire);
+	                }
+	                // Réinitialise les variables pour les attributs du prochain stagiaire
+	                nom = null;
+	                prenom = null;
+	                departement = 0;
+	                classe = null;
+	                anneeRentree = 0;
+	            } else {
+	                // Sinon, la ligne contient un attribut du stagiaire en cours de lecture
+	                if (nom == null) {
+	                    nom = line;
+	                } else if (prenom == null) {
+	                    prenom = line;
+	                } else if (departement == 0) {
+	                    // Si departement est 0, cela signifie que nous n'avons pas encore lu cette information
+	                    departement = Integer.parseInt(line);
+	                } else if (classe == null) {
+	                    classe = line;
+	                } else {
+	                    // Si anneeRentree est 0, cela signifie que nous n'avons pas encore lu cette information
+	                    anneeRentree = Integer.parseInt(line);
+	                }
+	                
+	                // Vérifie à nouveau si toutes les informations nécessaires sont disponibles, puis crée et ajoute l'objet Stagiaire à la liste.
+	                if (nom != null && prenom != null && departement != 0 && classe != null && anneeRentree != 0) {
+	                    Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
+	                    stagiaires.add(stagiaire);
+	                }
+	            }
+	        }
+	    } catch (Exception e) {
+	        // Gère toute exception qui pourrait se produire lors de la lecture du fichier (cette partie doit être remplie en fonction de votre gestion d'erreurs).
+	    }
+	    
+	    // Retourne la liste des stagiaires après avoir parcouru tout le fichier
+	    return stagiaires;
 	}
 
 }
