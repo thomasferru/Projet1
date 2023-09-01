@@ -15,8 +15,7 @@ public class Stagiaire {
 
 	// Contructeur a faire en fonction de valentin
 
-	public Stagiaire(String nom, String prenom, int departement, String promotion, int anneeFormation,
-			String filePath) {
+	public Stagiaire(String nom, String prenom, int departement, String promotion, int anneeFormation) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -27,52 +26,52 @@ public class Stagiaire {
 
 	// getter setter
 
+
 	public String getNom() {
 		return nom;
 	}
-
-
 
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
 	public String getPrenom() {
-		return Prenom;
+		return prenom;
 	}
 
 	public void setPrenom(String prenom) {
-		Prenom = prenom;
+		this.prenom = prenom;
 	}
 
 	public int getDepartement() {
-		return Departement;
+		return departement;
 	}
 
 	public void setDepartement(int departement) {
-		Departement = departement;
+		this.departement = departement;
 	}
 
 	public String getPromotion() {
-		return Promotion;
+		return promotion;
 	}
 
 	public void setPromotion(String promotion) {
-		Promotion = promotion;
+		this.promotion = promotion;
 	}
 
 	public int getAnneeFormation() {
-		return AnneeFormation;
+		return anneeFormation;
 	}
 
 	public void setAnneeFormation(int anneeFormation) {
-		AnneeFormation = anneeFormation;
+		this.anneeFormation = anneeFormation;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "Stagiaire [nom=" + nom + ", Prenom=" + Prenom + ", Departement=" + Departement + ", Promotion="
-				+ Promotion + ", AnneeFormation=" + AnneeFormation + "]";
+		return "Stagiaire [nom=" + nom + ", prenom=" + prenom + ", departement=" + departement + ", promotion="
+				+ promotion + ", anneeFormation=" + anneeFormation + "]";
 	}
 <<<<<<< HEAD
 
@@ -86,6 +85,9 @@ public class Stagiaire {
 =======
 >>>>>>> 178b66119fbb459b9e30ef0db6f1d3771ff14e63
 
+
+
+
 	String filePath = "./resources/STAGIAIRES.DON";
 
 	public static List<Stagiaire> loadFromTheFile(String filePath) {
@@ -95,13 +97,13 @@ public class Stagiaire {
 			String line;
 			String nom = null;
 			String prenom = null;
-			String departement = null;
+			int departement = 0;
 			String classe = null;
 			int anneeRentree = 0;
 			while ((line = reader.readLine()) != null) {
 				if (line.equals("*")) {
-					if (nom != null && prenom != null && departement != null && classe != null && anneeRentree != 0) {
-						Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
+					if (nom != null && prenom != null && departement != 0 && classe != null && anneeRentree != 0) {
+						Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, departement);
 						stagiaires.add(stagiaire);
 					}
 				}
