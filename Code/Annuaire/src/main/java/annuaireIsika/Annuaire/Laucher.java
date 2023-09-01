@@ -14,8 +14,11 @@ public class Laucher {
 		test.getRoot().ajouter(aul);
 		test.getRoot().ajouter(pa);
 		test.getRoot().ajouter(ul);
+		test.getRoot().rechercheNoeudASupprimer("ujnpo");
+		test.getRoot().modifierStagiaire("uuhhn", new Stagiaire("gandalf","le blanc",15,"moria",3015));
 		System.out.println(test.getRoot().affich());
 		System.out.println(test.getRoot().contient("un"));
+		
 	}
 
 }

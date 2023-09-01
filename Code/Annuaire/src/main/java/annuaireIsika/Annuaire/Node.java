@@ -68,9 +68,88 @@ public class Node {
 			if (this.right == null) { 
 				return null;
 			} else {
-				return this.right.contient(Nom);// non, je demande au fils Droit de s'en occuper
+				return this.right.contient(Nom);
 			}
 		}
+	}
+	
+	//supprimer un stagiare
+	
+	public void rechercheNoeudASupprimer(String nom) {
+		if (nom.compareTo(this.value.getNom()) < 0) { // je pars à gauche
+			if (this.left == null) {
+				System.out.println(nom + " ne se trouve pas dans l'arbre");
+			} else {
+				if (this.left.getValue().getNom().equals(nom)) {
+					// Ici, on lancera la supression
+					if (this.left.nbDescendants()==0) {
+						this.left=null;
+					} else if (this.left.nbDescendants() == 2) {
+						this.left.supprimerRacineAvecDeuxFils();
+					} else if (this.left.getLeft()!=null) {
+						this.left=this.left.getLeft();
+					}else {
+						this.left=this.left.getRight();
+					}
+					
+				} else {
+					this.left.rechercheNoeudASupprimer(nom);
+				}
+			}
+		} else { // je pars à droite
+			if (this.right == null) {
+				System.out.println(nom + " ne se trouve pas dans l'arbre");
+			} else {
+				if (this.right.getValue().getNom().equals(nom)) {
+					// Ici, on lancera la supression
+					if (this.right.nbDescendants()==0) {
+						this.right=null;
+					} else if (this.right.nbDescendants() == 2) {
+						//appel d'une méthode de supression
+						this.right.supprimerRacineAvecDeuxFils();
+					} else if (this.right.getLeft()!=null) {
+						this.right=this.right.getLeft();
+					}else {
+						this.right=this.right.getRight();
+					}
+				} else {
+					this.right.rechercheNoeudASupprimer(nom);
+				}
+			}
+		}
+	}public Node rechercheSuccesseur() {
+		Node noeudCourant = this.right;
+		if (noeudCourant!=null) {
+			while (noeudCourant.left!=null) {
+				noeudCourant=noeudCourant.left;
+			}
+		}
+		return noeudCourant;
+	}public int nbDescendants() {
+		// Je suis une feuille -> terminaison
+		if ((this.left == null) && (this.right == null)) {
+			return 0;
+		} else if ((this.left != null) && (this.right == null)) {
+			// Je n'ai qu'un fils gauche
+			return 1;
+		} else if ((this.left == null) && (this.right != null)) {
+			// Je n'ai qu'un fils droit
+			return 1;
+		} else { // j'ai deux fils, je garde donc le maximum entre les deux
+			return 2;
+		}
+	}public void supprimerRacineAvecDeuxFils() {
+		this.value=this.rechercheSuccesseur().getValue();
+		this.rechercheNoeudASupprimer(value.getNom());
+	}
+
+	//modifier un stagiaire
+	
+	public void modifierStagiaire(String nomSupprimer, Stagiaire stagiaireAjouter) {
+		
+		rechercheNoeudASupprimer(nomSupprimer);
+		ajouter(stagiaireAjouter);
+		
 	}
 	
 	// getter setter

@@ -60,6 +60,11 @@ public class Stagiaire {
 		return "Stagiaire [nom=" + nom + ", Prenom=" + Prenom + ", Departement=" + Departement + ", Promotion="
 				+ Promotion + ", AnneeFormation=" + AnneeFormation + "]";
 	}
+
+	public int compareTo(Stagiaire value) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 	
