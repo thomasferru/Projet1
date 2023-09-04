@@ -1,90 +1,100 @@
-package annuaireIsika.Annuaire;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Stagiaire {
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
-	private String nom;
-	private String prenom;
-	private int departement;
-	private String promotion;
-	private int anneeFormation;
+public class Stagiaire2 {
+	private StringProperty nom;
+	private StringProperty prenom;
+	private IntegerProperty departement;
+	private StringProperty promotion;
+	private IntegerProperty anneeFormation;
 
-	// Contructeur a faire en fonction de valentin
-
-	public Stagiaire(String nom, String prenom, int departement, String promotion, int anneeFormation) {
-		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.departement = departement;
-		this.promotion = promotion;
-		this.anneeFormation = anneeFormation;
+	public Stagiaire2(String nom, String prenom, int departement, String promotion, int anneeFormation) {
+		this.nom = new SimpleStringProperty(nom);
+		this.prenom = new SimpleStringProperty(prenom);
+		this.departement = new SimpleIntegerProperty(departement);
+		this.promotion = new SimpleStringProperty(promotion);
+		this.anneeFormation = new SimpleIntegerProperty(anneeFormation);
 	}
-	// getter setter
+
+	// Getters et setters pour les propriétés observables
 
 	public String getNom() {
-		return nom;
+		return nom.get();
 	}
-	
 
 	public void setNom(String nom) {
-		this.nom = nom;
+		this.nom.set(nom);
+	}
+
+	public StringProperty nomProperty() {
+		return nom;
 	}
 
 	public String getPrenom() {
-		return prenom;
+		return prenom.get();
 	}
 
 	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+		this.prenom.set(prenom);
+	}
 
+	public StringProperty prenomProperty() {
+		return prenom;
 	}
 
 	public int getDepartement() {
-		return departement;
+		return departement.get();
 	}
 
 	public void setDepartement(int departement) {
-		this.departement = departement;
+		this.departement.set(departement);
+	}
 
+	public IntegerProperty departementProperty() {
+		return departement;
 	}
 
 	public String getPromotion() {
-		return promotion;
+		return promotion.get();
 	}
 
 	public void setPromotion(String promotion) {
-		this.promotion = promotion;
+		this.promotion.set(promotion);
+	}
 
+	public StringProperty promotionProperty() {
+		return promotion;
 	}
 
 	public int getAnneeFormation() {
-		return anneeFormation;
+		return anneeFormation.get();
 	}
 
 	public void setAnneeFormation(int anneeFormation) {
-		this.anneeFormation = anneeFormation;
+		this.anneeFormation.set(anneeFormation);
+	}
 
+	public IntegerProperty anneeFormationProperty() {
+		return anneeFormation;
 	}
 
 	@Override
 	public String toString() {
-
-		return "Stagiaire [nom=" + nom + ", Prenom=" + prenom + ", Departement=" + departement + ", Promotion="
-				+ promotion + ", AnneeFormation=" + anneeFormation + "]";
-
+		return "Stagiaire2 [nom=" + nom + ", prenom=" + prenom + ", departement=" + departement + ", promotion="
+				+ promotion + ", anneeFormation=" + anneeFormation + "]";
 	}
-
-	public int compareTo(Stagiaire value) {
-		// TODO Auto-generated method stuby
-		return 0;
-	}
-
 	
-
+	
+	
+	//-----------------------------------
+	
 	public static List<Stagiaire> loadFromTheFile() {
 	    // Crée une liste vide pour stocker les objets Stagiaire
 	    List<Stagiaire> stagiaires = new ArrayList<>();
@@ -144,5 +154,7 @@ public class Stagiaire {
 	    // Retourne la liste des stagiaires après avoir parcouru tout le fichier
 	    return stagiaires;
 	}
-
+	
+	
+	
 }

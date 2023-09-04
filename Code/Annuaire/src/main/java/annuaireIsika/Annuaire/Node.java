@@ -1,5 +1,10 @@
 package annuaireIsika.Annuaire;
 
+import java.util.ArrayList;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class Node {
 	
 	//Attributs
@@ -52,6 +57,9 @@ public class Node {
 
 		return resultat;
 	}
+	
+	
+	
 	
 	//recherche et renvoie un stagiaire selon son nom
 	
