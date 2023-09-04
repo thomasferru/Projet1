@@ -48,11 +48,33 @@ public class ConvertTreeToBinaryFile implements Serializable {
 		for (StagiaireEtNombreEnfants aModifier : result) {
 			
 			//gauche d'abord
-			
 			//qui est le fils gauche dans l'arbre ?
-			
-			
 			// ou est t'il dans la list ?
+			
+			int nombreGauche;
+			Stagiaire filsGauche;
+			if (this.tree.getRoot().getValue().equals(aModifier.getStagiaire())) {
+				filsGauche=this.tree.getRoot().getValue();		
+				aModifier.setGauche(result.indexOf(filsGauche));
+				
+			} else if (Nom.compareTo(this.value.getNom()) < 0) { 
+				if (this.left == null) { 
+					
+				} else {
+					
+				}
+			} else {
+				if (this.right == null) { 
+					
+				} else {
+					
+				}
+			}
+			
+	
+			
+			// affectation
+			
 			
 			//doitre maintenant
 			

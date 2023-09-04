@@ -81,6 +81,8 @@ public class Node {
 		}
 	}
 	
+
+	
 	//supprimer un stagiare
 	
 	public void rechercheNoeudASupprimer(String nom) {

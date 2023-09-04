@@ -20,7 +20,7 @@ public class App extends Application {
         stage.show();
 //        System.out.println(Stagiaire.loadFromTheFile());
 //        System.out.println(fromArrayToTree(Stagiaire.loadFromTheFile()).getRoot().affich());
-        System.out.println(fromArrayToTree(Stagiaire.loadFromTheFile()).getRoot().makeAList());
+       // System.out.println(fromArrayToTree(Stagiaire.loadFromTheFile()).getRoot().makeAList());
         
     }
 
