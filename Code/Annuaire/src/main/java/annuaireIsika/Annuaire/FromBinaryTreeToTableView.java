@@ -102,7 +102,7 @@ public class FromBinaryTreeToTableView extends VBox{
 		//maTable.getColumns().add(colonneAge);
 
 		// *********Mise en place de la liste observable**********
-		maTable.setItems(FXCollections.observableList(maPromo.groupe));
+//		maTable.setItems(FXCollections.observableList(maPromo.groupe));
 
 		this.getChildren().add(maTable);
 		
