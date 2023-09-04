@@ -47,37 +47,6 @@ public class ConvertTreeToBinaryFile implements Serializable {
 		
 		for (StagiaireEtNombreEnfants aModifier : result) {
 			
-			//gauche d'abord
-			//qui est le fils gauche dans l'arbre ?
-			// ou est t'il dans la list ?
-			
-			int nombreGauche;
-			Stagiaire filsGauche;
-			if (this.tree.getRoot().getValue().equals(aModifier.getStagiaire())) {
-				filsGauche=this.tree.getRoot().getValue();		
-				aModifier.setGauche(result.indexOf(filsGauche));
-				
-			} else if (Nom.compareTo(this.value.getNom()) < 0) { 
-				if (this.left == null) { 
-					
-				} else {
-					
-				}
-			} else {
-				if (this.right == null) { 
-					
-				} else {
-					
-				}
-			}
-			
-	
-			
-			// affectation
-			
-			
-			//doitre maintenant
-			
 			aModifier.setDroit(0);
 			aModifier.setGauche(0);
 			
@@ -87,6 +56,51 @@ public class ConvertTreeToBinaryFile implements Serializable {
 		
 	}
 	
+	
+	//methode pour trouver les index de chaque fils gauche et droite
+	
+	public int indexGauche(StagiaireEtNombreEnfants aModifier,ArrayList<StagiaireEtNombreEnfants> result,Node root) {
+		
+		Stagiaire filsGauche;
+		if (this.tree.getRoot().getValue().equals(aModifier.getStagiaire())) {
+			filsGauche=this.tree.getRoot().getLeft().getValue();
+			return result.indexOf(filsGauche);
+			
+		} else if (this.tree.getRoot().getValue().getNom().compareTo(aModifier.getStagiaire().getNom())<0) { 
+			return indexGauche( aModifier,result,root.getLeft());}
+		else if(this.tree.getRoot().getValue().getNom().compareTo(aModifier.getStagiaire().getNom())>0) {
+			return indexGauche(aModifier,result,root.getLeft());}
+		else {
+			return Math.max(indexGauche( aModifier,result,root.getLeft()),indexGauche(aModifier,result,root.getLeft()));
+					}
+			
+
+		 }
+						
+	//methode pour trouver les index de chaque fils  droite
+	
+		public int indexDroit(StagiaireEtNombreEnfants aModifier,ArrayList<StagiaireEtNombreEnfants> result,Node root) {
+			
+			Stagiaire filsdroit;
+			if (this.tree.getRoot().getValue().equals(aModifier.getStagiaire())) {
+				filsdroit=this.tree.getRoot().getRight().getValue();
+				return result.indexOf(filsdroit);
+				
+			} else if (this.tree.getRoot().getValue().getNom().compareTo(aModifier.getStagiaire().getNom())>0) { 
+				return indexDroit( aModifier,result,root.getRight());}
+			else if(this.tree.getRoot().getValue().getNom().compareTo(aModifier.getStagiaire().getNom())<0) {
+				return indexDroit(aModifier,result,root.getRight());}
+			else {
+				return Math.max(indexDroit( aModifier,result,root.getRight()),indexDroit(aModifier,result,root.getRight()));
+						}
+				
+
+			 }
+			
+	
+		
+	
+
 	
 	
 	// methode pour mettre la liste dans un fichier binaire
