@@ -4,7 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -13,12 +15,14 @@ public class SecondScene extends VBox {
 	public SecondScene() {
 		
 		super(24);
-
+		
+		Label label = new Label("Entrez votre mot de passe");
 		PasswordField password = new PasswordField();
 		Button btnValider = new Button("Valider");
 		Button btnBack = new Button("Retour");
-
-		this.getChildren().addAll(password, btnValider, btnBack);
+		
+	
+		this.getChildren().addAll(label,password, btnValider, btnBack);
 		
 		MainBorderPane mainBorderPane = new MainBorderPane();
 			Scene scene = new Scene(mainBorderPane);
