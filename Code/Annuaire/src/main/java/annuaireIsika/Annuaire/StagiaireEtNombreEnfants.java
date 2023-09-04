@@ -13,6 +13,10 @@ import java.io.Serializable;
 
 public class StagiaireEtNombreEnfants implements Serializable {
 	
+	@Override
+	public String toString() {
+		return "StagiaireEtNombreEnfants [stagiaire=" + stagiaire + ", droit=" + droit + ", gauche=" + gauche + "]";
+	}
 	private Stagiaire stagiaire;
 	public int droit;
 	public int gauche;

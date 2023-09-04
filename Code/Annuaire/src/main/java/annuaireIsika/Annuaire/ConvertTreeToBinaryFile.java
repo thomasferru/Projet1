@@ -39,16 +39,18 @@ public class ConvertTreeToBinaryFile implements Serializable {
 		//boucle pour mettre les stagiaires
 		
 		for (Stagiaire stagiaire : Stagiaire.loadFromTheFile()) {
-			StagiaireEtNombreEnfants buffer = new StagiaireEtNombreEnfants(stagiaire,-1,-1);
+			StagiaireEtNombreEnfants buffer = new StagiaireEtNombreEnfants(stagiaire,0,0);
 			result.add(buffer);
 		}
 		
 		// boucle pour mettre les ints dans chaque cases
 		
-		for (StagiaireEtNombreEnfants aModifier : result) {
+		for (StagiaireEtNombreEnfants StagiaireEtIntaModifier : result) {
 			
-			aModifier.setDroit(0);
-			aModifier.setGauche(0);
+			
+			StagiaireEtIntaModifier.setGauche(indexGauche(this.tree.getRoot(), StagiaireEtIntaModifier.getStagiaire(),result));
+			//aModifier.setDroit(indexDroit(aModifier,result,this.tree.getRoot()));
+			
 			
 		}
 		
@@ -59,40 +61,49 @@ public class ConvertTreeToBinaryFile implements Serializable {
 	
 	//methode pour trouver les index de chaque fils gauche et droite
 	
-	public int indexGauche(StagiaireEtNombreEnfants aModifier,ArrayList<StagiaireEtNombreEnfants> result,Node root) {
-		
-		Stagiaire filsGauche;
-		if (this.tree.getRoot().getValue().equals(aModifier.getStagiaire())) {
-			filsGauche=this.tree.getRoot().getLeft().getValue();
-			return result.indexOf(filsGauche);
-			
-		} else if (this.tree.getRoot().getValue().getNom().compareTo(aModifier.getStagiaire().getNom())<0) { 
-			return indexGauche( aModifier,result,root.getLeft());}
-		else if(this.tree.getRoot().getValue().getNom().compareTo(aModifier.getStagiaire().getNom())>0) {
-			return indexGauche(aModifier,result,root.getLeft());}
-		else {
-			return Math.max(indexGauche( aModifier,result,root.getLeft()),indexGauche(aModifier,result,root.getLeft()));
-					}
-			
+	public BinaryTree getTree() {
+		return tree;
+	}
 
+
+
+	public void setTree(BinaryTree tree) {
+		this.tree = tree;
+	}
+
+
+
+	public int indexGauche(Node root,Stagiaire stagiaire,ArrayList<StagiaireEtNombreEnfants> listStagiaire) {
+		
+		int i =-1;
+		//le trouver dans l'arbre
+		if (stagiaire.equals(root.getValue())) {
+			for(StagiaireEtNombreEnfants filsGauche :listStagiaire) {
+				i=i+1;
+				if(((root.getLeft())!=null)&&(root.getLeft().getValue().equals(filsGauche.getStagiaire()))) {
+					
+					return i;
+				}
+			}
+			return i;
+		}else if(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())<0) {
+			return indexGauche(root.getLeft(),stagiaire,listStagiaire);
+				
+		}else if(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())>0) {
+			return indexGauche(root.getRight(),stagiaire,listStagiaire);
+		}
+		return -999999999;
+		//fils gauche ?
+		// index du fils gauche dans la list ?
+
+		
 		 }
 						
 	//methode pour trouver les index de chaque fils  droite
 	
-		public int indexDroit(StagiaireEtNombreEnfants aModifier,ArrayList<StagiaireEtNombreEnfants> result,Node root) {
+		public int indexDroit() {
 			
-			Stagiaire filsdroit;
-			if (this.tree.getRoot().getValue().equals(aModifier.getStagiaire())) {
-				filsdroit=this.tree.getRoot().getRight().getValue();
-				return result.indexOf(filsdroit);
-				
-			} else if (this.tree.getRoot().getValue().getNom().compareTo(aModifier.getStagiaire().getNom())>0) { 
-				return indexDroit( aModifier,result,root.getRight());}
-			else if(this.tree.getRoot().getValue().getNom().compareTo(aModifier.getStagiaire().getNom())<0) {
-				return indexDroit(aModifier,result,root.getRight());}
-			else {
-				return Math.max(indexDroit( aModifier,result,root.getRight()),indexDroit(aModifier,result,root.getRight()));
-						}
+			
 				
 
 			 }
@@ -126,7 +137,14 @@ public class ConvertTreeToBinaryFile implements Serializable {
 	
 	// je ne sais plus pourquoi, mais c'est important ( j'aurai du commenter avant )
 	
-	  public BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
+	  @Override
+	public String toString() {
+		return "ConvertTreeToBinaryFile [tree=" + tree + ", treeToListTrie()=" + treeToListTrie() + "]";
+	}
+
+
+
+	public BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
 			BinaryTree result = new BinaryTree((stagiaires.get(0)));
 			for (Stagiaire stagiaire : stagiaires) {
 				result.getRoot().ajouter(stagiaire);

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Stagiaire implements Serializable{
 
@@ -85,6 +86,26 @@ public class Stagiaire implements Serializable{
 	}
 
 	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(anneeFormation, departement, nom, prenom, promotion);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Stagiaire))
+			return false;
+		Stagiaire other = (Stagiaire) obj;
+		if (anneeFormation == other.anneeFormation && departement == other.departement
+				&& (nom.compareToIgnoreCase(other.nom)==0) && (prenom.compareToIgnoreCase(other.prenom)==0)
+				&&(promotion.compareToIgnoreCase(other.promotion)==0)) {
+			return true;
+		}
+		return false;
+	}
 
 	public static List<Stagiaire> loadFromTheFile() {
 	    // Crée une liste vide pour stocker les objets Stagiaire

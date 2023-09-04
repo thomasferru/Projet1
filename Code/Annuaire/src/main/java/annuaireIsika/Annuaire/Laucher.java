@@ -11,8 +11,9 @@ public class Laucher {
 		
 		ConvertTreeToBinaryFile arbreEnBinaire = new ConvertTreeToBinaryFile((fromArrayToTree(Stagiaire.loadFromTheFile())));
 		arbreEnBinaire.treeToFile();
-		
-       
+		System.out.println(arbreEnBinaire);
+		Stagiaire henry = new Stagiaire("trt","tre",8,"tr",7);
+       System.out.println(arbreEnBinaire.getTree().getRoot().getValue().getNom().compareToIgnoreCase("a"));
 		
 
 }
