@@ -104,7 +104,6 @@ public class FromBinaryTreeToTableView extends VBox{
 		maTable.setItems(FXCollections.observableList(maPromo.groupe));
 
 		this.getChildren().add(maTable);
-		
 		//J'ai fini de créer ma Table.
 		HBox formulaireAjout = new HBox();
 		TextField nomTF = new TextField("nom");
