@@ -23,8 +23,9 @@ public class App extends Application {
         Scene scene = new Scene(root,500,500);
         stage.setScene(scene);
         stage.show();
-        System.out.println(Stagiaire.loadFromTheFile());
-        System.out.println(fromArrayToTree(Stagiaire.loadFromTheFile()).getRoot().affich());
+//        System.out.println(Stagiaire.loadFromTheFile());
+//        System.out.println(fromArrayToTree(Stagiaire.loadFromTheFile()).getRoot().affich());
+       // System.out.println(fromArrayToTree(Stagiaire.loadFromTheFile()).getRoot().makeAList());
         
         //Mettre un logo
         
@@ -38,7 +39,7 @@ public class App extends Application {
 
 
     
-    public static BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
+    public BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
 		BinaryTree result = new BinaryTree((stagiaires.get(0)));
 		for (Stagiaire stagiaire : stagiaires) {
 			result.getRoot().ajouter(stagiaire);
