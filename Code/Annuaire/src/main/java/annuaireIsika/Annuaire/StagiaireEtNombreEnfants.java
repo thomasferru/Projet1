@@ -2,6 +2,15 @@ package annuaireIsika.Annuaire;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * cette class contient l'objet StagiaireEtNombreEnfants utiliser dans convertTreeToBinaryFile
+ * Aucun interet autre 
+ * 
+ * @author thoma
+ *
+ */
+
 public class StagiaireEtNombreEnfants implements Serializable {
 	
 	private Stagiaire stagiaire;

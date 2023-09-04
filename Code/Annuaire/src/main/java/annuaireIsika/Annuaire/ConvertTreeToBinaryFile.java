@@ -8,12 +8,19 @@ import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * class permettant de convertir un arbre en fichier binaire,
+ *appeler la methode treeToFile, les autres servents juste a faire marcher la premiere
+ * @author thoma
+ *
+ */
+
 public class ConvertTreeToBinaryFile implements Serializable {
 	
 	private BinaryTree tree;
 	
 	
-	
+	// constructeur
 	public ConvertTreeToBinaryFile(BinaryTree tree) {
 		super();
 		this.tree = tree;
@@ -29,16 +36,25 @@ public class ConvertTreeToBinaryFile implements Serializable {
 		this.tree = fromArrayToTree(Stagiaire.loadFromTheFile());
 		ArrayList<StagiaireEtNombreEnfants> result = new ArrayList();
 		
-		//boucle pour mettre les 1000 stagiaires
+		//boucle pour mettre les stagiaires
 		
 		for (Stagiaire stagiaire : Stagiaire.loadFromTheFile()) {
 			StagiaireEtNombreEnfants buffer = new StagiaireEtNombreEnfants(stagiaire,-1,-1);
 			result.add(buffer);
 		}
 		
-		// boucle pour mettre les ints dans chauqe cases
+		// boucle pour mettre les ints dans chaque cases
 		
 		for (StagiaireEtNombreEnfants aModifier : result) {
+			
+			//gauche d'abord
+			
+			//qui est le fils gauche dans l'arbre ?
+			
+			
+			// ou est t'il dans la list ?
+			
+			//doitre maintenant
 			
 			aModifier.setDroit(0);
 			aModifier.setGauche(0);
@@ -54,18 +70,14 @@ public class ConvertTreeToBinaryFile implements Serializable {
 	// methode pour mettre la liste dans un fichier binaire
 
 	
-	
 	public void treeToFile(){
-		Stagiaire.loadFromTheFile();
+		ConvertTreeToBinaryFile test = new ConvertTreeToBinaryFile((fromArrayToTree(Stagiaire.loadFromTheFile())));
        
-		// TODO Auto-generated method stub
-		Stagiaire.loadFromTheFile();
-	       
 		// TODO Auto-generated method stub
 		try (FileOutputStream fos = new FileOutputStream("example.bin");
 			     ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-			Stagiaire dataArray = new Stagiaire("hery","hery",56,"peor",54); // Example integer array
-		    oos.writeObject(dataArray);
+			
+		    oos.writeObject(test.treeToListTrie());
 			 fromArrayToTree(Stagiaire.loadFromTheFile());
 			} catch (IOException e) {
 			    e.printStackTrace();
@@ -75,6 +87,8 @@ public class ConvertTreeToBinaryFile implements Serializable {
 	}
 	
 	
+	
+	// je ne sais plus pourquoi, mais c'est important ( j'aurai du commenter avant )
 	
 	  public BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
 			BinaryTree result = new BinaryTree((stagiaires.get(0)));
