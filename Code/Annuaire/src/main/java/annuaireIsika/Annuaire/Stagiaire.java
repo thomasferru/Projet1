@@ -78,7 +78,7 @@ public class Stagiaire {
 	}
 
 	public int compareTo(Stagiaire value) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stuby
 		return 0;
 	}
 
