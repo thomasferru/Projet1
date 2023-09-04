@@ -12,6 +12,8 @@ public class RightPart extends VBox {
 	public RightPart() {
 		super(24);
 		
+		// Création des champs pour la recherche avancée
+		
 		Label lb = new Label("Recherche avancée ");
 		TextField txtFieldNom = new TextField();
 		txtFieldNom.setPromptText("Nom");

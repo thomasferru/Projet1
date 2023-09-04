@@ -13,6 +13,8 @@ public class LeftPart extends VBox {
 	public LeftPart() {
 		super(60);
 
+		// Création des champs pour la recherche simple
+		
 		Label lb = new Label("Recherche ");
 		
 		TextField txtFieldNom = new TextField();
