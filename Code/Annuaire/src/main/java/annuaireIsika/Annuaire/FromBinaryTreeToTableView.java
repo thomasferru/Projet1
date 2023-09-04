@@ -33,6 +33,7 @@ public class FromBinaryTreeToTableView extends VBox{
 
 	public void PromotionView() {
 		
+		
 
 		this.maTable = new TableView<Node>();
 		maTable.setEditable(true);
@@ -104,6 +105,11 @@ public class FromBinaryTreeToTableView extends VBox{
 		maTable.setItems(FXCollections.observableList(maPromo.groupe));
 
 		this.getChildren().add(maTable);
+		
+		ObservableList<Stagiaire> stagiaireList = FXCollections.observableArrayList();
+		populateStagiaireList(binaryTree.getRoot(), stagiaireList);
+
+		TableView.setItems(stagiaireList);
 		
 		//J'ai fini de créer ma Table.
 		HBox formulaireAjout = new HBox();

@@ -25,7 +25,7 @@ public class App extends Application {
 
 
     
-    public static BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
+    public BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
 		BinaryTree result = new BinaryTree((stagiaires.get(0)));
 		for (Stagiaire stagiaire : stagiaires) {
 			result.getRoot().ajouter(stagiaire);

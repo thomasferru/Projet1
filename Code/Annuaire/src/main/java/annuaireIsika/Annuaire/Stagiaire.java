@@ -2,10 +2,11 @@ package annuaireIsika.Annuaire;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Stagiaire {
+public class Stagiaire implements Serializable{
 
 	private String nom;
 	private String prenom;
