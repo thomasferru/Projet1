@@ -6,23 +6,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Node {
-	
-	//Attributs
+
+	// Attributs
 	private Stagiaire value;
 	private Node left;
 	private Node right;
-	
-	//Constructeur
+
+	// Constructeur
 
 	public Node(Stagiaire value) {
-		this.value=value;
-		right=null;
-		left=null;
+		this.value = value;
+		right = null;
+		left = null;
 	}
-	
-	
-	//ajouter 
-	
+
+	// ajouter
+
 	public void ajouter(Stagiaire value) {
 		if (value.getNom().compareTo(this.value.getNom()) < 0) { // Je pars à gauche ou a droite
 			if (this.left == null) { // je regarde si j'ai la place d'insérer à gauche
@@ -39,7 +38,7 @@ public class Node {
 		}
 	}
 
-	//afficher 
+	// afficher
 
 	public String affich() {
 		String resultat = "";
@@ -57,34 +56,29 @@ public class Node {
 
 		return resultat;
 	}
-	
-	
-	
-	
-	//recherche et renvoie un stagiaire selon son nom
-	
+
+	// recherche et renvoie un stagiaire selon son nom
+
 	public Stagiaire contient(String Nom) {
 		if (this.value.getNom().equals(Nom)) {
 			return this.value;
-		} else if (Nom.compareTo(this.value.getNom()) < 0) { 
-			if (this.left == null) { 
+		} else if (Nom.compareTo(this.value.getNom()) < 0) {
+			if (this.left == null) {
 				return null;
 			} else {
 				return this.left.contient(Nom);
 			}
 		} else {
-			if (this.right == null) { 
+			if (this.right == null) {
 				return null;
 			} else {
 				return this.right.contient(Nom);
 			}
 		}
 	}
-	
 
-	
-	//supprimer un stagiare
-	
+	// supprimer un stagiare
+
 	public void rechercheNoeudASupprimer(String nom) {
 		if (nom.compareTo(this.value.getNom()) < 0) { // je pars à gauche
 			if (this.left == null) {
@@ -92,16 +86,16 @@ public class Node {
 			} else {
 				if (this.left.getValue().getNom().equals(nom)) {
 					// Ici, on lancera la supression
-					if (this.left.nbDescendants()==0) {
-						this.left=null;
+					if (this.left.nbDescendants() == 0) {
+						this.left = null;
 					} else if (this.left.nbDescendants() == 2) {
 						this.left.supprimerRacineAvecDeuxFils();
-					} else if (this.left.getLeft()!=null) {
-						this.left=this.left.getLeft();
-					}else {
-						this.left=this.left.getRight();
+					} else if (this.left.getLeft() != null) {
+						this.left = this.left.getLeft();
+					} else {
+						this.left = this.left.getRight();
 					}
-					
+
 				} else {
 					this.left.rechercheNoeudASupprimer(nom);
 				}
@@ -112,30 +106,34 @@ public class Node {
 			} else {
 				if (this.right.getValue().getNom().equals(nom)) {
 					// Ici, on lancera la supression
-					if (this.right.nbDescendants()==0) {
-						this.right=null;
+					if (this.right.nbDescendants() == 0) {
+						this.right = null;
 					} else if (this.right.nbDescendants() == 2) {
-						//appel d'une méthode de supression
+						// appel d'une méthode de supression
 						this.right.supprimerRacineAvecDeuxFils();
-					} else if (this.right.getLeft()!=null) {
-						this.right=this.right.getLeft();
-					}else {
-						this.right=this.right.getRight();
+					} else if (this.right.getLeft() != null) {
+						this.right = this.right.getLeft();
+					} else {
+						this.right = this.right.getRight();
 					}
 				} else {
 					this.right.rechercheNoeudASupprimer(nom);
 				}
 			}
 		}
-	}public Node rechercheSuccesseur() {
+	}
+
+	public Node rechercheSuccesseur() {
 		Node noeudCourant = this.right;
-		if (noeudCourant!=null) {
-			while (noeudCourant.left!=null) {
-				noeudCourant=noeudCourant.left;
+		if (noeudCourant != null) {
+			while (noeudCourant.left != null) {
+				noeudCourant = noeudCourant.left;
 			}
 		}
 		return noeudCourant;
-	}public int nbDescendants() {
+	}
+
+	public int nbDescendants() {
 		// Je suis une feuille -> terminaison
 		if ((this.left == null) && (this.right == null)) {
 			return 0;
@@ -148,22 +146,24 @@ public class Node {
 		} else { // j'ai deux fils, je garde donc le maximum entre les deux
 			return 2;
 		}
-	}public void supprimerRacineAvecDeuxFils() {
-		this.value=this.rechercheSuccesseur().getValue();
+	}
+
+	public void supprimerRacineAvecDeuxFils() {
+		this.value = this.rechercheSuccesseur().getValue();
 		this.rechercheNoeudASupprimer(value.getNom());
 	}
 
-	//modifier un stagiaire
-	
+	// modifier un stagiaire
+
 	public void modifierStagiaire(String nomSupprimer, Stagiaire stagiaireAjouter) {
-		
+
 		rechercheNoeudASupprimer(nomSupprimer);
 		ajouter(stagiaireAjouter);
-		
+
 	}
-	
+
 	// getter setter
-	
+
 	public Stagiaire getValue() {
 		return value;
 	}
@@ -188,17 +188,9 @@ public class Node {
 		this.right = right;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "[value=" + value + ", left=" + left + ", right=" + right + "]";
 	}
-	
-	
-	
-	
-	
-	
 
 }

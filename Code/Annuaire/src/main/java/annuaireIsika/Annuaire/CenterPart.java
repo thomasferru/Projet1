@@ -1,6 +1,5 @@
 package annuaireIsika.Annuaire;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -10,19 +9,13 @@ public class CenterPart extends VBox {
 		super();
 
 		Label test = new Label("test");
-
-		ScrollPane centerScrollPane = new ScrollPane();
-		centerScrollPane.setHmin(300);
-		centerScrollPane.setHmax(800);
-//		TestTv tableView = new TestTv();
+		VBox tbvContainer = new VBox();
+		TestTv tbView = new TestTv();
+		tbvContainer.getChildren().addAll(tbView);
 		
-//		centerScrollPane.setContent(tableView);
-
-		this.getChildren().addAll(test, centerScrollPane);
-
 		
 
-	
+		this.getChildren().addAll(test, tbView);
 
 	}
 
