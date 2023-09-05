@@ -13,9 +13,11 @@ public class Laucher {
 		arbreEnBinaire.treeToFile();
 		System.out.println(arbreEnBinaire);
 		Stagiaire henry = new Stagiaire("trt","tre",8,"tr",7);
-       System.out.println(arbreEnBinaire.getTree().getRoot().getValue().getNom().compareToIgnoreCase("a"));
-		
-
+       //System.out.println(arbreEnBinaire.getTree().getRoot().getValue().getNom().compareToIgnoreCase("a"));
+		System.out.println(arbreEnBinaire.getTree().getRoot().getValue());
+		System.out.println(arbreEnBinaire.getTree().getRoot().getRight().getValue());
+       System.out.println(arbreEnBinaire.getTree().getRoot().getLeft().getValue());
+       //System.out.println(arbreEnBinaire.getTree().getRoot().getRight().getValue());
 }
 
 	private static BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {

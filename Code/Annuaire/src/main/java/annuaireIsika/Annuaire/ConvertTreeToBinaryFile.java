@@ -49,7 +49,7 @@ public class ConvertTreeToBinaryFile implements Serializable {
 			
 			
 			StagiaireEtIntaModifier.setGauche(indexGauche(this.tree.getRoot(), StagiaireEtIntaModifier.getStagiaire(),result));
-			//aModifier.setDroit(indexDroit(aModifier,result,this.tree.getRoot()));
+			StagiaireEtIntaModifier.setDroit(indexDroit(this.tree.getRoot(), StagiaireEtIntaModifier.getStagiaire(),result));
 			
 			
 		}
@@ -85,7 +85,7 @@ public class ConvertTreeToBinaryFile implements Serializable {
 					return i;
 				}
 			}
-			return i;
+			
 		}else if(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())<0) {
 			return indexGauche(root.getLeft(),stagiaire,listStagiaire);
 				
@@ -93,16 +93,31 @@ public class ConvertTreeToBinaryFile implements Serializable {
 			return indexGauche(root.getRight(),stagiaire,listStagiaire);
 		}
 		return -999999999;
-		//fils gauche ?
-		// index du fils gauche dans la list ?
-
+		
 		
 		 }
 						
 	//methode pour trouver les index de chaque fils  droite
 	
-		public int indexDroit() {
+		public int indexDroit(Node root,Stagiaire stagiaire,ArrayList<StagiaireEtNombreEnfants> listStagiaire) {
+			int i =-1;
+			if (stagiaire.equals(root.getValue())) {
+				for(StagiaireEtNombreEnfants filsDroit :listStagiaire) {
+					i=i+1;
+					if(((root.getRight())!=null)&&(root.getRight().getValue().equals(filsDroit.getStagiaire()))) {
+						
+						return i;
+					}
+				}
 			
+			}else if(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())<0) {
+				return indexGauche(root.getLeft(),stagiaire,listStagiaire);
+					
+			}else if(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())>0) {
+				return indexGauche(root.getRight(),stagiaire,listStagiaire);
+			}
+			return -999999999;
+				
 			
 				
 
