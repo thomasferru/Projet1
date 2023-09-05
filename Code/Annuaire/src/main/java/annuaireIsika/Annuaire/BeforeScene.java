@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class BeforeScene extends VBox {
@@ -21,9 +22,22 @@ public class BeforeScene extends VBox {
 	public BeforeScene() {
 
 		super();
+		
+		//Mettre un logo
+		File logo = new File("./resources/Images/Logo_Isika.jpg");
+		Image img = new Image(logo.toURI().toString());	
+		
+		//Mettre le logo en haut à gauche
+		ImageView logoView = new ImageView(img);
+		HBox hbox = new HBox(10);
+		hbox.setAlignment(Pos.TOP_LEFT);
+		hbox.getChildren().add(logoView);
+		logoView.setFitWidth(150); // Largeur souhaitée
+		logoView.setFitHeight(100);// Hauteur souhaitée
 
-		Label labelAccueil = new Label("Bienvenue dans l'Annuaire d'Isika");
+		Label labelAccueil = new Label("Bienvenue dans l'annuaire d'Isika");
 		labelAccueil.setPrefSize(800, 300);
+		labelAccueil.setFont(Font.font("Tahoma", 30));
 		labelAccueil.setAlignment(Pos.CENTER);
 		
 		Button admin = new Button("Se connecter en tant qu'administrateur");
@@ -36,22 +50,8 @@ public class BeforeScene extends VBox {
 
 		this.setStyle("-fx-background-color: beige;");
 		
-		//Mettre un logo
-        
-		File logo = new File("./resources/Images/Logo_Isika.jpg");
-		Image img = new Image(logo.toURI().toString());		
 		
-		ImageView logoView = new ImageView(img);
-		//logoView.setFitWidth(70); // Largeur souhaitée
-		//logoView.setFitHeight(70);// Hauteur souhaitée
-		
-		//Mettre le logo en haut à gauche
-		HBox hbox = new HBox(10);
-		hbox.setAlignment(Pos.TOP_LEFT);
-		hbox.getChildren().add(logoView);
-		//Scene scene = new Scene(hbox, 800, 600);
-		
-		this.getChildren().addAll(labelAccueil, admin, user, logoView);
+		this.getChildren().addAll(logoView,hbox,labelAccueil, admin, user);
 
 		// Ce qui se passe lorsqu'on clique sur le bouton admin
 
