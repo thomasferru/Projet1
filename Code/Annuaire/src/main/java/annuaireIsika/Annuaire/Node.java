@@ -1,11 +1,12 @@
 package annuaireIsika.Annuaire;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Node {
+public class Node implements Serializable{
 
 	// Attributs
 	private Stagiaire value;

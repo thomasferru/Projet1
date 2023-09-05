@@ -72,30 +72,44 @@ public class ConvertTreeToBinaryFile implements Serializable {
 	}
 
 
-
 	public int indexGauche(Node root,Stagiaire stagiaire,ArrayList<StagiaireEtNombreEnfants> listStagiaire) {
-		
 		int i =-1;
-		//le trouver dans l'arbre
-		if (stagiaire.equals(root.getValue())) {
+		
+			if ((root!=null)&&(stagiaire.equals(root.getValue()))) {
 			for(StagiaireEtNombreEnfants filsGauche :listStagiaire) {
 				i=i+1;
 				if(((root.getLeft())!=null)&&(root.getLeft().getValue().equals(filsGauche.getStagiaire()))) {
 					
 					return i;
 				}
+				
+				
+			}return i=-1;
 			}
 			
-		}else if(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())<0) {
+			else if(((root!=null)&&(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom()) ==0))) {
+				// probleme, pourquoi sa return 0 ???
+				
+				int leftMax = indexGauche(root.getLeft(), stagiaire, listStagiaire);
+				int rightMax = indexGauche(root.getRight(), stagiaire, listStagiaire);
+              	return Math.max(rightMax, leftMax);
+              	
+		
+		}else if((root!=null)&&(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())<0)) {
 			return indexGauche(root.getLeft(),stagiaire,listStagiaire);
 				
-		}else if(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())>0) {
+		}else if((root!=null)&&(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())>0)) {
 			return indexGauche(root.getRight(),stagiaire,listStagiaire);
 		}
-		return -999999999;
+
 		
-		
+		return 0;
+
 		 }
+
+
+		
+	
 						
 	//methode pour trouver les index de chaque fils  droite
 	
@@ -111,10 +125,10 @@ public class ConvertTreeToBinaryFile implements Serializable {
 				}
 			
 			}else if(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())<0) {
-				return indexGauche(root.getLeft(),stagiaire,listStagiaire);
+				return indexDroit(root.getLeft(),stagiaire,listStagiaire);
 					
 			}else if(stagiaire.getNom().compareToIgnoreCase(root.getValue().getNom())>0) {
-				return indexGauche(root.getRight(),stagiaire,listStagiaire);
+				return indexDroit(root.getRight(),stagiaire,listStagiaire);
 			}
 			return -999999999;
 				

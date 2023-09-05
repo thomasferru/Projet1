@@ -1,14 +1,26 @@
 package annuaireIsika.Annuaire;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.RandomAccessFile;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class BinaryTree {
+public class BinaryTree implements Serializable{
+
+	@Override
+	public String toString() {
+		return "BinaryTree [root=" + root + "]";
+	}
 
 	private Node root;
 
@@ -122,5 +134,95 @@ public class BinaryTree {
 	}
 
 	
+	
+	//test
+	
+	public void treeToFile(){
+		BinaryTree arbre = fromArrayToTree(Stagiaire.loadFromTheFile());
+		int i =0;
+		// TODO Auto-generated method stub
+		try (FileOutputStream fos = new FileOutputStream("example.bin");
+			     ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+			for (Stagiaire stagiaire : Stagiaire.loadFromTheFile()) {
+		    oos.writeObject(stagiaire);
+		    oos.write(-1);
+		    oos.write(-1);
+		    
+		    }
+			 
+			} catch (IOException e) {
+			    e.printStackTrace();}
+		//maintenant je marque les index
+		for (Stagiaire stagiaire : Stagiaire.loadFromTheFile()) {
+			writeInFile(stagiaire,i);
+			i=i+1;
+		}
+		
+			}
+		
+	
+	
+		public void writeInFile(Stagiaire stagiaire,int i) {
+			// File name to open for reading and writing
+	        String fileName = "example.bin";
+
+	        try {
+	            // Open the file in "read-write" mode ( remplace l'endroit viser )
+	            RandomAccessFile file = new RandomAccessFile(fileName, "rw");
+	            
+	            //seek end file
+	            file.seek(SeekToCharacter());
+	    
+	            // Write data to the file
+	            String dataToWrite = "This is new data to append.";
+	            file.writeBytes(dataToWrite);
+
+	            // Close the file
+	            file.close();
+
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+
+		
+	}
+		
+		public int SeekToCharacter() {
+		    
+			String fileName = "example.bin";
+	        int targetChar = -1;
+
+	        try {
+	            FileInputStream fileInputStream = new FileInputStream(fileName);
+	            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+
+	            int position = 0;
+	            int character;
+	            
+	            while ((character = bufferedInputStream.read()) != -1) {
+	                char currentChar = (char) character;
+	                position++;
+	                
+	                if (currentChar == targetChar) {
+	                    
+	                    return position;
+	                }
+	            }
+
+	            bufferedInputStream.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        return 0;
+	    }
+		    
+
+	
+	
+public void indexGauche() {
+	
+}
 
 }
+
