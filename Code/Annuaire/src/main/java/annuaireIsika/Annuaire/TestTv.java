@@ -1,61 +1,51 @@
 package annuaireIsika.Annuaire;
 
-import javafx.collections.FXCollections;
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
-public class TestTv {
+public class TestTv extends VBox{
 	public TestTv() {
-		super(); 
+		super();
+//		System.out.println(fromArrayToTree(Stagiaire.loadFromTheFile()).getRoot().makeAList());
 		TableView<Stagiaire> tableView = new TableView<>();
-		
+
+		// test
+		List<Stagiaire> stagiaires = BinaryTree.loadFromTheFile();
+
+		Stagiaire rootStagiaire = stagiaires.get(0);
+
+		BinaryTree test = new BinaryTree(rootStagiaire);
+
+		ObservableList<Stagiaire> list = test.makeAList();
+		System.out.println(stagiaires);
+
 		// définir les colonnes
-			
+
 		TableColumn<Stagiaire, String> nameColumn = new TableColumn<>("Nom");
 		nameColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
-		
+
 		TableColumn<Stagiaire, String> prenomColumn = new TableColumn<>("Prénom");
 		prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-		
+
 		TableColumn<Stagiaire, Integer> depColumn = new TableColumn<>("Département");
 		depColumn.setCellValueFactory(new PropertyValueFactory<>("departement"));
 
 		TableColumn<Stagiaire, String> promoColumn = new TableColumn<>("Pomotion");
 		promoColumn.setCellValueFactory(new PropertyValueFactory<>("promotion"));
-		
+
 		TableColumn<Stagiaire, Integer> anneEntreeColumn = new TableColumn<>("Année d'entrée");
 		anneEntreeColumn.setCellValueFactory(new PropertyValueFactory<>("anneeFormation"));
-		
-		
-		 tableView.getColumns().addAll(nameColumn, prenomColumn, depColumn, promoColumn, anneEntreeColumn);
-		 ObservableList<Stagiaire> ObsListSatgiaires = makeAList();
-		 tableView.setItems(ObsListSatgiaires);
+
+		tableView.getColumns().addAll(nameColumn, prenomColumn, depColumn, promoColumn, anneEntreeColumn);
+
+		tableView.setItems(list);
+		this.getChildren().add(tableView);
+
 	}
-	
-	// faire un liste 
-	
-		public ObservableList<Stagiaire> makeAList() {
-		    ObservableList<Stagiaire> observableList = FXCollections.observableArrayList();
-		    makeAListRecursive(this, observableList);
-		    return observableList;
-		}
-
-		private void makeAListRecursive(Node node, ObservableList<Stagiaire> observableList) {
-		    if (node == null) {
-		        return; // Arrêt de la récursion si le nœud est nul
-		    }
-
-		    makeAListRecursive(node.getLeft(), observableList); // Parcours du sous-arbre gauche (G)
-		    observableList.add(node.getValue()); // Ajout du nœud courant à l'ObservableList
-		    makeAListRecursive(node.getRight(), observableList); // Parcours du sous-arbre droit (D)
-		}
-	
-	
-	
-	
-	
-
 
 }

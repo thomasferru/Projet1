@@ -2,12 +2,11 @@ package annuaireIsika.Annuaire;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Stagiaire implements Serializable{
+public class Stagiaire {
 
 	private String nom;
 	private String prenom;
@@ -30,7 +29,6 @@ public class Stagiaire implements Serializable{
 	public String getNom() {
 		return nom;
 	}
-	
 
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -83,13 +81,6 @@ public class Stagiaire implements Serializable{
 	public int compareTo(Stagiaire value) {
 		// TODO Auto-generated method stuby
 		return 0;
-	}
-
-	
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(anneeFormation, departement, nom, prenom, promotion);
 	}
 
 	@Override
