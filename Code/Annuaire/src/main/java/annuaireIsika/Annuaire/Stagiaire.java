@@ -87,10 +87,7 @@ public class Stagiaire implements Serializable{
 
 	
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(anneeFormation, departement, nom, prenom, promotion);
-	}
+
 
 	@Override
 	public boolean equals(Object obj) {
