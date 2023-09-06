@@ -1,4 +1,4 @@
-package annuaireIsika.Annuaire;
+package annuaireIsika.Annuaire.back;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

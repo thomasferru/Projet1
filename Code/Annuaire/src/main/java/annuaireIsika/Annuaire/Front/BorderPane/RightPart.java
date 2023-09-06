@@ -1,7 +1,8 @@
-package annuaireIsika.Annuaire;
+package annuaireIsika.Annuaire.Front.BorderPane;
 
 import java.io.File;
 
+import annuaireIsika.Annuaire.Front.SecondeScene;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,18 +21,22 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class RightPart extends BorderPane {
-	private Scene scene;
+	
 
-	public RightPart(Scene mainScene) {
+
+	public RightPart() {
 		super();
-		this.scene = scene;
+		
+		
 
 // ---début admin
 
 		HBox admin = new HBox(8);
 
-		File padlockIcon = new File("./resources/Images/Padlock.png");
+		File padlockIcon = new File("src/main/resources/Images/Padlock.png");
+		
 		Image img = new Image(padlockIcon.toURI().toString());
+
 		ImageView padlockView = new ImageView(img);
 
 		Label adminLbl = new Label("admin");
@@ -48,8 +53,7 @@ public class RightPart extends BorderPane {
 		adminBtn.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				System.out.println("Bouton admin cliqué !");
-				Scene connect = new Scene(new SecondeSceneV(scene), 1024, 640);
+				Scene connect = new Scene(new SecondeScene(), 1024, 640);
 				Stage primaryStage = (Stage) adminBtn.getScene().getWindow();
 				primaryStage.setScene(connect);
 

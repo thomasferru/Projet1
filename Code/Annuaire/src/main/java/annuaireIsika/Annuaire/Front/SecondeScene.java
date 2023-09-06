@@ -1,6 +1,7 @@
 
-package annuaireIsika.Annuaire;
+package annuaireIsika.Annuaire.Front;
 
+import annuaireIsika.Annuaire.Front.BorderPane.MainBorderPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -10,12 +11,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SecondeSceneV extends VBox {
-	private Scene scene;
+public class SecondeScene extends VBox {
 
-	public SecondeSceneV(Scene mainScene) {
+	public SecondeScene() {
 		super(24);
-		this.scene = scene; 
+	
 
 		Label label = new Label("Entrez votre mot de passe");
 		PasswordField password = new PasswordField();
@@ -24,14 +24,12 @@ public class SecondeSceneV extends VBox {
 
 		this.getChildren().addAll(label, password, btnValider, btnBack);
 
-//		MainBorderPane mainBorderPane = new MainBorderPane();
-//		Scene scene = new Scene(mainBorderPane);
 
 		btnValider.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				Stage stage = (Stage) SecondeSceneV.this.getScene().getWindow();
-				stage.setScene(scene); // Revenez à la scène principale
+				Stage stage = (Stage) SecondeScene.this.getScene().getWindow();
+				stage.setScene(new Scene(new MainBorderPane(), 1024, 640));
 			}
 		});
 
@@ -39,8 +37,9 @@ public class SecondeSceneV extends VBox {
 			@Override
 			public void handle(ActionEvent event) {
 
-				Stage stage = (Stage) SecondeSceneV.this.getScene().getWindow();
-				stage.setScene(scene);
+				Stage stage = (Stage) SecondeScene.this.getScene().getWindow();
+				stage.setScene(new Scene(new MainBorderPane(), 1024, 640));
+				stage.show();
 			}
 		});
 
