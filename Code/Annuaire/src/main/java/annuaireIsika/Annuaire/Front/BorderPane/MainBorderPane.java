@@ -1,4 +1,4 @@
-package annuaireIsika.Annuaire;
+package annuaireIsika.Annuaire.Front.BorderPane;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -6,18 +6,22 @@ import javafx.scene.layout.BorderPane;
 public class MainBorderPane extends BorderPane {
 	 private Scene scene;
 
-	public MainBorderPane(Scene mainScene) {
+	public MainBorderPane() {
 		super();
-		this.scene = scene;
+		init();
+		
+
+	}
+	
+	public void init() {
 		LeftPart leftPart = new LeftPart();
-		RightPart rightPart = new RightPart(scene);
-		CenterPart centerPart = new CenterPart(scene);
+		RightPart rightPart = new RightPart();
+		CenterPart centerPart = new CenterPart();
 
 		this.setLeft(leftPart);
 		this.setRight(rightPart);
 
 		this.setCenter(centerPart);
-
 	}
 	
 

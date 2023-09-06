@@ -1,7 +1,8 @@
-package annuaireIsika.Annuaire;
+package annuaireIsika.Annuaire.Front;
 
 import java.io.File;
 
+import annuaireIsika.Annuaire.Front.BorderPane.MainBorderPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -60,11 +61,11 @@ public class BeforeScene extends VBox {
 
 			public void handle(ActionEvent event) {
 
-				SecondScene secondScene = new SecondScene();
-				Scene scene = new Scene(secondScene);
-				Stage stage = (Stage) BeforeScene.this.getScene().getWindow();
-				stage.setScene(scene);
-
+////				SecondScene secondScene = new SecondScene();
+//				Scene scene = new Scene(secondScene);
+//				Stage stage = (Stage) BeforeScene.this.getScene().getWindow();
+//				stage.setScene(scene);
+//
 			}
 		});
 		// Ce qui se passe lorsqu'on clique sur le bouton user

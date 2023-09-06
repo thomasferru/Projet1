@@ -1,16 +1,15 @@
-package annuaireIsika.Annuaire;
+package annuaireIsika.Annuaire.Front.BorderPane;
 
+import annuaireIsika.Annuaire.Front.TableV;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class CenterPart extends VBox {
-	public CenterPart(Scene mainScene) {
+	public CenterPart() {
 		super();
 
 		Label h1 = new Label("STAGIAIRES ISIKA");
@@ -18,7 +17,7 @@ public class CenterPart extends VBox {
 		h1.setFont(fontH1);
 
 		VBox tbvContainer = new VBox();
-		TestTv tbView = new TestTv();
+		TableV tbView = new TableV();
 		tbvContainer.getChildren().addAll(tbView);
 		
 		Button btnPdf = new Button("Générer PDF");
