@@ -1,7 +1,9 @@
-package annuaireIsika.Annuaire;
+package annuaireIsika.Annuaire.Front;
 
 import java.util.List;
 
+import annuaireIsika.Annuaire.back.BinaryTree;
+import annuaireIsika.Annuaire.back.Stagiaire;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -9,13 +11,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
-public class TestTv extends VBox{
+public class TableV extends VBox{
 	
 	private BinaryTree tree;
-	public TestTv() {
+	public TableV() {
 		super();
 		tree = new BinaryTree(new Stagiaire(null, null, null, null, 0));
-//		System.out.println(fromArrayToTree(Stagiaire.loadFromTheFile()).getRoot().makeAList());
+
 		TableView<Stagiaire> tableView = new TableView<>();
 
 		// test

@@ -1,4 +1,4 @@
-package annuaireIsika.Annuaire;
+package annuaireIsika.Annuaire.Front.BorderPane;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
