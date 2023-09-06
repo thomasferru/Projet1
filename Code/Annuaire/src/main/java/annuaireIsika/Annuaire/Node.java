@@ -38,6 +38,27 @@ public class Node implements Serializable{
 			}
 		}
 	}
+	
+	public void ajouterBinaire(Stagiaire stagiaireAjout) {
+		//int comparaison =  this.nom.CompareTo(stagiaire.nom)
+		//si comparaison > 0 -> à gauche
+			//si this.filsGauche <0
+				//on a trouvé l'emplacement
+				//on remonte le curseur de 8octet ->raf.seek(raf.getfilePointer -12)
+				//on, ecrit l'index du stagiaire qu'on ajoute : taille du fichier / taille d'un noed (en octet)
+				// on se met à la fin du fichier -> raf.seek(raf.length)
+				//j'ecris le noeudAjout 
+			//sinon on va appeler la recursivité depuis le fils gauche
+				//je met le curseur à indexFilsFauche * Taille Noeud
+				//je lis le noeud Gauche et le stocke dans une variable
+				//gauche.ajouter(stagiaireAjout)
+		//sinon si comparaison <0 -> a droite
+			//meme raisonnement que pour gauche 
+			// attention on remonte de -8
+		//sinon comparaison = 0 
+			//meme raisonnement mais on remonte de -4
+			
+	}
 
 	// afficher
 

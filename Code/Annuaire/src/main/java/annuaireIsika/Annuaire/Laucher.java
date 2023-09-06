@@ -7,15 +7,13 @@ import java.util.List;
 
 public class Laucher {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Stagiaire stagFile = new Stagiaire(null, null, null, null, 0);
-		
-		BinaryTree arbre = fromArrayToTree(stagFile.loadFromTheFile());
-		
+		BinaryTree tree = new BinaryTree(stagFile);
+		tree.treeToFile();
 		System.out.println(stagFile.loadFromTheFile());
-		System.out.println(arbre);
-		arbre.treeToFile();
-		arbre.read();
+		System.out.println(stagFile.loadFromTheFile().get(3).getNom());
+		;
 }
 
 	private static BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {

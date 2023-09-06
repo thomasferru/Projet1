@@ -16,10 +16,10 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class BinaryTree implements Serializable{
-	
-	private Stagiaire stagiaireFile;
+public class BinaryTree implements Serializable {
 
+	private Stagiaire stagiaireFile;
+	
 	@Override
 	public String toString() {
 		return "BinaryTree [root=" + root + "]";
@@ -42,7 +42,7 @@ public class BinaryTree implements Serializable{
 	}
 
 	// methodes
-
+	// a enlever
 	public BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
 		BinaryTree result = new BinaryTree((stagiaires.get(0)));
 		for (Stagiaire stagiaire : stagiaires) {
@@ -70,16 +70,17 @@ public class BinaryTree implements Serializable{
 		makeAListRecursive(node.getRight(), observableList); // Parcours du sous-arbre droit (D)
 	}
 
+	// utiliser celle de stagiaire plutot
 	public List<Stagiaire> loadFromTheFile() {
 		// Crée une liste vide pour stocker les objets Stagiaire
 		List<Stagiaire> stagiaires = new ArrayList<>();
 
 		// Définit le chemin du fichier à lire
 		URL filePath = getClass().getClassLoader().getResource("STAGIAIRES.DON");
-		 System.out.println(filePath);
+		System.out.println(filePath);
 		// Démarre un bloc try-catch pour gérer les exceptions potentielles lors de la
 		// lecture du fichier
-		try  {
+		try {
 			BufferedReader reader = new BufferedReader(new FileReader(filePath.getFile()));
 			// Déclare une variable pour stocker chaque ligne lue du fichier
 			String line;
@@ -92,7 +93,7 @@ public class BinaryTree implements Serializable{
 			int anneeRentree = 0;
 
 			System.out.println("fichier don trouvé");
-			
+
 			// Démarre une boucle while pour lire chaque ligne du fichier
 			while ((line = reader.readLine()) != null) {
 				// Vérifie si la ligne actuelle est égale à "*". Si c'est le cas, cela signifie
@@ -143,139 +144,37 @@ public class BinaryTree implements Serializable{
 		return stagiaires;
 	}
 
-	
-	
-	//test
-	
-	public void treeToFile(){
-		BinaryTree arbre = fromArrayToTree(stagiaireFile.loadFromTheFile());
-		int i =0;
-		// TODO Auto-generated method stub
+	// test
+
+	public void treeToFile() throws IOException {
+
+		// TODO creer le fichier binaire
 		try (FileOutputStream fos = new FileOutputStream("example.bin");
 			     ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-			for (Stagiaire stagiaire : stagiaireFile.loadFromTheFile()) {
-		    oos.writeObject(stagiaire);
-		    oos.write(-1);
-		    oos.write(-1);
-		    oos.writeBytes("*");
-		    
-		    }
-			 
-			} catch (IOException e) {
-			    e.printStackTrace();}
-		//maintenant je marque les index
+		
+		} catch (IOException e) {
+		    e.printStackTrace();}
+		// TODO mettre le raf en attribut de la classe, je l'initialise dans le
+		// constructeur
+		
+		
+		
+		
 		for (Stagiaire stagiaire : stagiaireFile.loadFromTheFile()) {
-			writeInFile(stagiaire,i);
-			i=i+1;
+
+			// ajouterArbre(stagiaire)
+
+		
 		}
-		
-			}
-		
-	
-	
-		public void writeInFile(Stagiaire stagiaire,int i) {
-			// File name to open for reading and writing
-	        String fileName = "example.bin";
 
-	        try {
-	            // Open the file in "read-write" mode ( remplace l'endroit viser )
-	            RandomAccessFile file = new RandomAccessFile(fileName, "rw");
-	            
-	            //seek end file
-	            file.seek(SeekToCharacter()-4);
-	    
-	            // Write data to the file
-	            //String dataToWrite = "This is new data to append.";
-	            //file.writeBytes(dataToWrite);
-
-	            file.write(indexGauche(stagiaire,fromArrayToTree(stagiaireFile.loadFromTheFile()).getRoot(),stagiaireFile.loadFromTheFile()));
-	            
-	            // Close the file
-	            file.close();
-
-
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-
-		
-	}
-		
-		public int SeekToCharacter() {
-		    
-			String fileName = "example.bin";
-	        char targetChar = '*';
-	        
-	        try {
-	            FileInputStream fileInputStream = new FileInputStream(fileName);
-	            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-
-	            int position = 0;
-	            int character;
-	            
-	            while ((character = bufferedInputStream.read()) != -1) {
-	                char currentChar = (char) character;
-	                position++;
-	                
-	                if (currentChar == targetChar) {
-	                    
-	                    return position;
-	                }
-	            }
-
-	            bufferedInputStream.close();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	        return 0;
-	    }
-		    
-
-	
-	
-public int indexGauche(Stagiaire stagiaire, Node root, List <Stagiaire> stagiaires) {
-	//GND
-	if (root.getLeft()!=null) { // je peux aller a gauche ?
-		if (indexGauche(stagiaire,root.getLeft(),stagiaires)!=0) {
-			return indexGauche(stagiaire,root.getLeft(),stagiaires);
-		}
 	}
 	
-	//je check la node
-	if (root.getValue().compareTo(stagiaire)==0) {
-		//on cherche root.getLeft().getValue qui est un stagiaire dans la liste maintenant et on renvoie l'indice
-		return stagiaires.indexOf(stagiaire);		
+	public void ajouterArbre(Stagiaire stagiaireAjout) {
+		//si arbre vide -> si ton fichier binaire est vide 
+			//tu te mets au debut du fichier et tu éris noeudAjout (stagiaire, -1,-1)
+		//sinon
+			//tu lis le premier noeud tu le stockes dans une variable racine
+			//racine.ajouterBinaire(stagiaireAjout)
 	}
-	else if (root.getRight()!=null) {// je peux aller a droite ?
-		if (indexGauche(stagiaire,root.getRight(),stagiaires)!=0) {
-			return indexGauche(stagiaire,root.getRight(),stagiaires);
-		}
-	}
-	
-	return 0;
-	
+
 }
-
-public void read() {
-    String fileName = "example.bin";
-
-    try {
-        FileInputStream fileInputStream = new FileInputStream(fileName);
-        BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-
-        int bytesRead;
-        byte[] buffer = new byte[1024]; // You can adjust the buffer size as needed
-
-        while ((bytesRead = bufferedInputStream.read(buffer)) != -1) {
-            // Process the read data here
-            // 'buffer' contains 'bytesRead' bytes of data from the file
-            // You can convert these bytes into other data types or manipulate them as needed
-        }
-
-        bufferedInputStream.close();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
-}
-

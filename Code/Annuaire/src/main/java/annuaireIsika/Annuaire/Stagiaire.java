@@ -20,12 +20,27 @@ public class Stagiaire implements Serializable{
 
 	public Stagiaire(String nom, String prenom, String departement, String promotion, int anneeFormation) {
 		super();
+		
 		this.nom = nom;
 		this.prenom = prenom;
 		this.departement = departement;
 		this.promotion = promotion;
 		this.anneeFormation = anneeFormation;
+		
 	}
+	
+	public void setStagiaireTailleOctets() {
+		while(nom.length()<20) {
+			nom=nom+" ";}
+		while(prenom.length()<20) {
+			prenom=prenom+" ";}
+		while(departement.length()<20) {
+			departement=departement+" ";}
+		while(promotion.length()<20) {
+			promotion=promotion+" ";}
+	}
+		
+	
 	// getter setter
 
 	public String getNom() {
@@ -128,6 +143,7 @@ public class Stagiaire implements Serializable{
 	        	    if (nom != null && prenom != null && departement != null && classe != null && anneeRentree != 0) {
 	        	        // Crée un nouvel objet Stagiaire avec les informations lues et l'ajoute à la liste.
 	        	        Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
+	        	        stagiaire.setStagiaireTailleOctets();
 	        	        stagiaires.add(stagiaire);
 	        	    }
 	        	    // Réinitialise les variables pour les attributs du prochain stagiaire
