@@ -1,5 +1,10 @@
 package annuaireIsika.Annuaire;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -39,8 +44,87 @@ public class Node implements Serializable{
 		}
 	}
 	
-	public void ajouterBinaire(Stagiaire stagiaireAjout) {
+	public void ajouterBinaire(Stagiaire stagiaireAjout,RandomAccessFile raf) throws IOException {
+		
+		
+		
 		//int comparaison =  this.nom.CompareTo(stagiaire.nom)
+		
+		if (stagiaireAjout.getNom().compareToIgnoreCase(this.getValue().getNom())<0) {
+			raf.seek(raf.getFilePointer()-12);
+			//raf.seek(raf.getFilePointer()+12);
+			int indexExistantGauche =raf.readInt();
+			raf.seek(raf.getFilePointer()-4);
+			
+			if(indexExistantGauche == -1) {
+				
+				int indexFilsGauche = (int) raf.length()/96;
+				raf.writeInt(indexFilsGauche);
+				
+				//on ecrit le stagiaire a la fin du fichier binaire
+				raf.seek(raf.length());
+				raf.writeUTF(stagiaireAjout.getNom());
+	            raf.writeUTF(stagiaireAjout.getPrenom());
+	            raf.writeUTF(stagiaireAjout.getDepartement());
+	            raf.writeUTF(stagiaireAjout.getPromotion());
+	            raf.writeInt(stagiaireAjout.getAnneeFormation());
+	            raf.writeInt(-1);
+	            raf.writeInt(-1);
+	            raf.writeInt(-1);
+	            
+				
+
+	            
+			}else {
+				
+				raf.seek(indexExistantGauche*96);
+				Node noeudGauche = new Node(stagiaireAjout);
+				noeudGauche.getValue().setNom(readString(raf,20));
+				noeudGauche.getValue().setPrenom(readString(raf,20));
+				noeudGauche.getValue().setDepartement(readString(raf,20));
+				noeudGauche.getValue().setPromotion(readString(raf,20));
+				noeudGauche.getValue().setAnneeFormation(raf.readInt());
+				noeudGauche.ajouterBinaire(stagiaireAjout, raf);
+				
+			}
+			
+		}else if (stagiaireAjout.getNom().compareToIgnoreCase(this.getValue().getNom())>0) {
+				raf.seek(raf.length()-8);
+				
+				
+				int indexExistantDroit =raf.readInt();
+				
+				if(indexExistantDroit == -1) {
+					
+					int indexFilsDroit = (int) raf.length()/96;
+					raf.writeInt(indexFilsDroit);
+					
+					//on ecrit le stagiaire a la fin du fichier binaire
+					raf.seek(raf.length());
+					raf.writeUTF(stagiaireAjout.getNom());
+		            raf.writeUTF(stagiaireAjout.getPrenom());
+		            raf.writeUTF(stagiaireAjout.getDepartement());
+		            raf.writeUTF(stagiaireAjout.getPromotion());
+		            raf.writeInt(stagiaireAjout.getAnneeFormation());
+		            raf.writeInt(-1);
+		            raf.writeInt(-1);
+		            raf.writeInt(-1);
+				}else {
+					
+					raf.seek(indexExistantDroit*96);
+					Node noeudDroit = new Node(stagiaireAjout);
+					noeudDroit.getValue().setNom(readString(raf,20));
+					noeudDroit.getValue().setPrenom(readString(raf,20));
+					noeudDroit.getValue().setDepartement(readString(raf,20));
+					noeudDroit.getValue().setPromotion(readString(raf,20));
+					noeudDroit.getValue().setAnneeFormation(raf.readInt());
+					raf.seek(raf.getFilePointer()+12);
+					noeudDroit.ajouterBinaire(stagiaireAjout, raf);
+					
+				}
+		
+			}
+		
 		//si comparaison > 0 -> à gauche
 			//si this.filsGauche <0
 				//on a trouvé l'emplacement
@@ -57,8 +141,21 @@ public class Node implements Serializable{
 			// attention on remonte de -8
 		//sinon comparaison = 0 
 			//meme raisonnement mais on remonte de -4
-			
-	}
+		}
+		
+	
+	 private static String readString(RandomAccessFile raf, int length) throws IOException {
+         byte[] buffer = new byte[length];
+         int bytesRead = raf.read(buffer);
+
+         if (bytesRead != -1) {
+             return new String(buffer, "UTF-8"); // Adjust encoding if necessary
+         } else {
+             return null;
+         
+     }
+
+}
 
 	// afficher
 

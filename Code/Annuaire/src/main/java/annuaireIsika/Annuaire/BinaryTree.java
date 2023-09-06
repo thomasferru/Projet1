@@ -2,6 +2,10 @@ package annuaireIsika.Annuaire;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -13,24 +17,28 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class BinaryTree implements Serializable {
 
 	private Stagiaire stagiaireFile;
+	private Node root;
+	
 	
 	@Override
 	public String toString() {
 		return "BinaryTree [root=" + root + "]";
 	}
 
-	private Node root;
+	
 
 	public BinaryTree(Stagiaire root) {
 		super();
 		this.root = new Node(root);
 		stagiaireFile = new Stagiaire("", "", "", "", 0);
+		
 	}
 
 	public Node getRoot() {
@@ -146,35 +154,110 @@ public class BinaryTree implements Serializable {
 
 	// test
 
-	public void treeToFile() throws IOException {
+	public void treeToFile() throws IOException, InterruptedException {
 
 		// TODO creer le fichier binaire
-		try (FileOutputStream fos = new FileOutputStream("example.bin");
-			     ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-		
+		try (FileOutputStream fos = new FileOutputStream("example.bin")) {
+		    // You can leave this block empty, and it will create an empty "example.bin" file
 		} catch (IOException e) {
-		    e.printStackTrace();}
+		    e.printStackTrace();
+		}
 		// TODO mettre le raf en attribut de la classe, je l'initialise dans le
 		// constructeur
 		
-		
+		//fait
 		
 		
 		for (Stagiaire stagiaire : stagiaireFile.loadFromTheFile()) {
 
-			// ajouterArbre(stagiaire)
+			 ajouterArbre(stagiaire);
 
 		
 		}
 
 	}
 	
-	public void ajouterArbre(Stagiaire stagiaireAjout) {
+	public void ajouterArbre(Stagiaire stagiaireAjout) throws IOException, InterruptedException {
+		File file = new File("example.bin");
 		//si arbre vide -> si ton fichier binaire est vide 
-			//tu te mets au debut du fichier et tu éris noeudAjout (stagiaire, -1,-1)
+		//tu te mets au debut du fichier et tu éris noeudAjout (stagiaire, -1,-1)
+	
+		String fileName = "example.bin";
+		// si le fichier est vide
+		if (file.length()==0) {
+			
+
+	        try (FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+	             DataOutputStream dataOutputStream = new DataOutputStream(fileOutputStream)) {
+
+	            // Write binary data to the file
+	           
+	            
+	            dataOutputStream.writeBytes(stagiaireAjout.getNom());
+	            dataOutputStream.writeBytes(stagiaireAjout.getPrenom());
+	            dataOutputStream.writeBytes(stagiaireAjout.getDepartement());
+	            dataOutputStream.writeBytes(stagiaireAjout.getPromotion());
+	            dataOutputStream.writeInt(stagiaireAjout.getAnneeFormation());
+	            dataOutputStream.writeInt(-1);
+	            dataOutputStream.writeInt(-1);
+	            dataOutputStream.writeInt(-1);
+	          
+
+	            System.out.println("Data has been written to " + fileName);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }else {
+			
+		
+	
 		//sinon
 			//tu lis le premier noeud tu le stockes dans une variable racine
-			//racine.ajouterBinaire(stagiaireAjout)
-	}
 
-}
+		Stagiaire first = new Stagiaire(null, null, null, null, 0);
+		int totalOctets = 160;
+        int octetsPerString = 20;
+        int numStrings = totalOctets / octetsPerString;
+
+        
+           
+            try (RandomAccessFile raf = new RandomAccessFile(fileName, "rw")) {
+                String nom = readString(raf, octetsPerString);
+                String prenom = readString(raf, octetsPerString);
+                String departement = readString(raf, octetsPerString);
+                String promotion = readString(raf, octetsPerString);
+
+                first.setNom(nom);
+                first.setPrenom(prenom);
+                first.setDepartement(departement);
+                first.setPromotion(promotion);
+                
+                int anneeFormation = raf.readInt();
+                first.setAnneeFormation(anneeFormation);
+                
+                Thread.sleep(1000);
+                raf.seek(raf.length());
+                Node firstNode = new Node(first);
+                firstNode.ajouterBinaire(stagiaireAjout,raf);
+            } catch (IOException e) {
+                e.printStackTrace();}
+            }
+		
+		
+            }
+	
+            
+            private static String readString(RandomAccessFile raf, int length) throws IOException {
+                byte[] buffer = new byte[length];
+                int bytesRead = raf.read(buffer);
+
+                if (bytesRead != -1) {
+                    return new String(buffer, "UTF-8"); // Adjust encoding if necessary
+                } else {
+                    return null;
+                
+            }
+	
+	}}
+
+
