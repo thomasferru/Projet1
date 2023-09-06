@@ -2,6 +2,7 @@ package annuaireIsika.Annuaire;
 
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -9,13 +10,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
 public class TestTv extends VBox{
+	
+	private BinaryTree tree;
 	public TestTv() {
 		super();
+		tree = new BinaryTree(new Stagiaire(null, null, null, null, 0));
 //		System.out.println(fromArrayToTree(Stagiaire.loadFromTheFile()).getRoot().makeAList());
 		TableView<Stagiaire> tableView = new TableView<>();
 
 		// test
-		List<Stagiaire> stagiaires = BinaryTree.loadFromTheFile();
+		List<Stagiaire> stagiaires = tree.loadFromTheFile();
 
 		Stagiaire rootStagiaire = stagiaires.get(0);
 
@@ -43,7 +47,7 @@ public class TestTv extends VBox{
 
 		tableView.getColumns().addAll(nameColumn, prenomColumn, depColumn, promoColumn, anneEntreeColumn);
 
-		tableView.setItems(list);
+		tableView.setItems(FXCollections.observableArrayList(stagiaires));
 		this.getChildren().add(tableView);
 
 	}

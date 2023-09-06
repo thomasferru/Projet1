@@ -3,6 +3,7 @@ package annuaireIsika.Annuaire;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.Serializable;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,13 +12,13 @@ public class Stagiaire implements Serializable{
 
 	private String nom;
 	private String prenom;
-	private int departement;
+	private String departement;
 	private String promotion;
 	private int anneeFormation;
 
 	// Contructeur a faire en fonction de valentin
 
-	public Stagiaire(String nom, String prenom, int departement, String promotion, int anneeFormation) {
+	public Stagiaire(String nom, String prenom, String departement, String promotion, int anneeFormation) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -44,11 +45,11 @@ public class Stagiaire implements Serializable{
 
 	}
 
-	public int getDepartement() {
+	public String getDepartement() {
 		return departement;
 	}
 
-	public void setDepartement(int departement) {
+	public void setDepartement(String departement) {
 		this.departement = departement;
 
 	}
@@ -99,22 +100,23 @@ public class Stagiaire implements Serializable{
 		return false;
 	}
 
-	public static List<Stagiaire> loadFromTheFile() {
+	public  List<Stagiaire> loadFromTheFile() {
 	    // Crée une liste vide pour stocker les objets Stagiaire
 	    List<Stagiaire> stagiaires = new ArrayList<>();
 	    
 	    // Définit le chemin du fichier à lire
-	    String filePath = "./resources/STAGIAIRES.DON";
+	    URL filePath = getClass().getClassLoader().getResource("STAGIAIRES.DON");
+	    		//"STAGIAIRES.DON";
 
 	    // Démarre un bloc try-catch pour gérer les exceptions potentielles lors de la lecture du fichier
-	    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+	    try (BufferedReader reader = new BufferedReader(new FileReader(filePath.getFile()))) {
 	        // Déclare une variable pour stocker chaque ligne lue du fichier
 	        String line;
 	        
 	        // Initialise des variables pour stocker les attributs d'un stagiaire
 	        String nom = null;
 	        String prenom = null;
-	        int departement = 0;
+	        String departement = null;
 	        String classe = null;
 	        int anneeRentree = 0;
 
@@ -123,7 +125,7 @@ public class Stagiaire implements Serializable{
 	            // Vérifie si la ligne actuelle est égale à "*". Si c'est le cas, cela signifie qu'un nouveau stagiaire commence.
 	        	if (line.equals("*")) {
 	        	    // Vérifie si toutes les informations nécessaires pour créer un stagiaire sont disponibles.
-	        	    if (nom != null && prenom != null && departement != 0 && classe != null && anneeRentree != 0) {
+	        	    if (nom != null && prenom != null && departement != null && classe != null && anneeRentree != 0) {
 	        	        // Crée un nouvel objet Stagiaire avec les informations lues et l'ajoute à la liste.
 	        	        Stagiaire stagiaire = new Stagiaire(nom, prenom, departement, classe, anneeRentree);
 	        	        stagiaires.add(stagiaire);
@@ -131,7 +133,7 @@ public class Stagiaire implements Serializable{
 	        	    // Réinitialise les variables pour les attributs du prochain stagiaire
 	        	    nom = null;
 	        	    prenom = null;
-	        	    departement = 0;
+	        	    departement = null;
 	        	    classe = null;
 	        	    anneeRentree = 0;
 	        	} else {
@@ -140,9 +142,9 @@ public class Stagiaire implements Serializable{
 	        	        nom = line;
 	        	    } else if (prenom == null) {
 	        	        prenom = line;
-	        	    } else if (departement == 0) {
+	        	    } else if (departement == null) {
 	        	        // Si departement est 0, cela signifie que nous n'avons pas encore lu cette information
-	        	        departement = Integer.parseInt(line);
+	        	        departement = line;
 	        	    } else if (classe == null) {
 	        	        classe = line;
 	        	    } else {
