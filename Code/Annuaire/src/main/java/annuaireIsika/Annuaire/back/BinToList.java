@@ -1,6 +1,5 @@
 package annuaireIsika.Annuaire.back;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
@@ -8,10 +7,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class BinToList {
+	//private RandomAccessFile rafs;
 
-	public BinToList() throws FileNotFoundException {
+	public BinToList() throws IOException {
 		super();
-		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
+		//rafs = new RandomAccessFile("example.bin", "rw");
+		
 	}
 
 	/**
@@ -71,41 +72,41 @@ public class BinToList {
 	}
 
 //	public void ajouterUnStagiaireAuFichier(Stagiaire stagiaireAjouter) throws IOException {
-//
+//	
 //		// on doit mettre le pointeur au debut du fichier AVANT la premiere execution
-//		Node buffer = litUnNodeDuFichier(raf);
+//		Node buffer = litUnNodeDuFichier(rafs);
 //		if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) < 0) {
 //			if (buffer.getLeft() == -1) {
-//				raf.seek(raf.getFilePointer() - 12);
-//				int indexGauche = (int) (raf.length() / buffer.getTaille_Noeud());
-//				raf.writeInt(indexGauche);
-//				raf.seek(raf.length());
-//				ecrireUnNode(stagiaireAjouter, raf);
+//				rafs.seek(rafs.getFilePointer() - 12);
+//				int indexGauche = (int) (rafs.length() / buffer.getTaille_Noeud());
+//				rafs.writeInt(indexGauche);
+//				rafs.seek(rafs.length());
+//				ecrireUnNode(stagiaireAjouter, rafs);
 //			} else if (buffer.getLeft() != -1) {
-//				raf.seek((buffer.getLeft() * buffer.getTaille_Noeud()));
-//				ajouterUnStagiaireAuFichier(stagiaireAjouter, raf);
+//				rafs.seek((buffer.getLeft() * buffer.getTaille_Noeud()));
+//				ajouterUnStagiaireAuFichier(stagiaireAjouter);
 //			}
 //		} else if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) > 0) {
 //			if (buffer.getRight() == -1) {
-//				raf.seek(raf.getFilePointer() - 8);
-//				int indexDroit = (int) (raf.length() / buffer.getTaille_Noeud());
-//				raf.writeInt(indexDroit);
-//				raf.seek(raf.length());
-//				ecrireUnNode(stagiaireAjouter, raf);
+//				rafs.seek(rafs.getFilePointer() - 8);
+//				int indexDroit = (int) (rafs.length() / buffer.getTaille_Noeud());
+//				rafs.writeInt(indexDroit);
+//				rafs.seek(rafs.length());
+//				ecrireUnNode(stagiaireAjouter, rafs);
 //			} else if (buffer.getLeft() != -1) {
-//				raf.seek((buffer.getLeft() * buffer.getTaille_Noeud()));
-//				ajouterUnStagiaireAuFichier(stagiaireAjouter, raf);
+//				rafs.seek((buffer.getLeft() * buffer.getTaille_Noeud()));
+//				ajouterUnStagiaireAuFichier(stagiaireAjouter);
 //			}
 //		} else if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) == 0) {
 //			if (buffer.getDoublon() == -1) {
-//				raf.seek(raf.getFilePointer() - 4);
-//				int indexDouble = (int) (raf.length() / buffer.getTaille_Noeud());
-//				raf.writeInt(indexDouble);
-//				raf.seek(raf.length());
-//				ecrireUnNode(stagiaireAjouter, raf);
+//				rafs.seek(rafs.getFilePointer() - 4);
+//				int indexDouble = (int) (rafs.length() / buffer.getTaille_Noeud());
+//				rafs.writeInt(indexDouble);
+//				rafs.seek(rafs.length());
+//				ecrireUnNode(stagiaireAjouter, rafs);
 //			} else if (buffer.getLeft() != -1) {
-//				raf.seek((buffer.getDoublon() * buffer.getTaille_Noeud()));
-//				ajouterUnStagiaireAuFichier(stagiaireAjouter, raf);
+//				rafs.seek((buffer.getDoublon() * buffer.getTaille_Noeud()));
+//				ajouterUnStagiaireAuFichier(stagiaireAjouter);
 //			}
 //		}
 //	}
