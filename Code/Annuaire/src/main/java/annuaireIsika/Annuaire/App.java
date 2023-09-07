@@ -16,6 +16,8 @@ public class App extends Application {
         MainBorderPane root = new MainBorderPane(false);
         Scene scene = new Scene(root,1024,640);
         stage.setScene(scene);
+        stage.setTitle("[-Projet1-] Groupe3");
+        stage.setResizable(false);
         stage.show();
         
     }

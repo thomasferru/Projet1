@@ -1,43 +1,117 @@
 package annuaireIsika.Annuaire.Front.BorderPane;
 
+import java.io.File;
+
+import annuaireIsika.Annuaire.Front.AddView;
 import annuaireIsika.Annuaire.Front.GeneratePDF;
 import annuaireIsika.Annuaire.Front.TableV;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class CenterPart extends VBox {
-	public CenterPart() {
-		super();
+	private boolean connect;
+	private MainBorderPane mainBorderPane;
 
+	public CenterPart(MainBorderPane mainBorderPane,boolean connect) {
+		super();
+		this.connect = connect;
 		Label h1 = new Label("STAGIAIRES ISIKA");
 		Font fontH1 = Font.loadFont(getClass().getResource("/font/OpenSans-Bold.ttf").toExternalForm(), 34);
 		h1.setFont(fontH1);
 
 		VBox tbvContainer = new VBox();
-		TableV tbView = new TableV();
+		TableV tbView = new TableV(this.connect);
+//		TableV tbView = new TableV();
 		tbvContainer.getChildren().addAll(tbView);
 
-		Button btnPdf = new Button("Générer PDF");
-		Font fontBtnPDF = Font.loadFont(getClass().getResource("/font/OpenSans-Bold.ttf").toExternalForm(), 14);
+		// btns contener
+		HBox btnsContainer = new HBox(24);
 
-		btnPdf.setFont(fontBtnPDF);
+		Button btnPdf = new Button("Générer PDF");
+		Font fontBtn = Font.loadFont(getClass().getResource("/font/OpenSans-Bold.ttf").toExternalForm(), 14);
+
+		btnPdf.setFont(fontBtn);
 		btnPdf.setStyle("-fx-background-color: #F8C822;");
 		btnPdf.setPrefWidth(150);
+		btnPdf.setOnMousePressed(event -> {
+
+			btnPdf.setOpacity(0.5);
+		});
+
+		btnPdf.setOnMouseReleased(event -> {
+
+			btnPdf.setOpacity(1.0);
+		});
 
 		btnPdf.setOnAction(event -> {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setInitialFileName("tbv.pdf"); // Nom de fichier par défaut
+			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
 
-			String outputPath = "tbv.pdf"; // Spécifiez le chemin de sortie souhaité
-			GeneratePDF.exportToPdf(tbView, outputPath);
-			System.out.println("test");
+			Stage primaryStage = (Stage) getScene().getWindow();
+			File outputFile = fileChooser.showSaveDialog(primaryStage);
+
+			if (outputFile != null) {
+				String outputPath = outputFile.getAbsolutePath();
+				GeneratePDF.exportToPdf(tbView, outputPath);
+				System.out.println("test");
+
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("PDF créé");
+				alert.setHeaderText(null);
+				alert.setContentText("Le fichier PDF a été créé avec succès.");
+				alert.showAndWait();
+			}
 		});
+		
+		
+		Button addBtn = new Button("Ajouter");
+		addBtn.setFont(fontBtn);
+		addBtn.setStyle("-fx-background-color: #272A33;");
+		addBtn.setTextFill(Color.WHITE);
+		addBtn.setPrefWidth(150);
+		addBtn.setOnMousePressed(event -> {
+
+			addBtn.setOpacity(0.5);
+		});
+
+		addBtn.setOnMouseReleased(event -> {
+
+			addBtn.setOpacity(1.0);
+		});
+		
+		addBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				mainBorderPane.setCenter(new AddView());
+//				adminLbl.setTextFill(Color.RED);
+			}
+		});
+		
+		btnsContainer.getChildren().addAll(addBtn, btnPdf);
+		btnsContainer.setAlignment(Pos.CENTER);
 
 		// container
 		VBox container = new VBox(24);
-		container.getChildren().addAll(h1, tbvContainer, btnPdf);
+		if (connect == true) {
+			container.getChildren().addAll(h1, tbvContainer, btnsContainer);
+		}else {
+			container.getChildren().addAll(h1, tbvContainer);
+		}
+		
 		container.setAlignment(Pos.CENTER);
 
 		this.setAlignment(Pos.CENTER);
