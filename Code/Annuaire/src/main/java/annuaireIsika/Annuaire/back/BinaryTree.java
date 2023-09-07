@@ -194,13 +194,21 @@ public class BinaryTree implements Serializable {
 	           
 	            
 	            dataOutputStream.writeBytes(stagiaireAjout.getNom());
+	            
 	            dataOutputStream.writeBytes(stagiaireAjout.getPrenom());
+	          
 	            dataOutputStream.writeBytes(stagiaireAjout.getDepartement());
+	            
 	            dataOutputStream.writeBytes(stagiaireAjout.getPromotion());
+	           
 	            dataOutputStream.writeInt(stagiaireAjout.getAnneeFormation());
+	           
 	            dataOutputStream.writeInt(-1);
+	           
 	            dataOutputStream.writeInt(-1);
+	          
 	            dataOutputStream.writeInt(-1);
+	            
 	          
 
 	            System.out.println("Data has been written to " + fileName);
@@ -222,6 +230,7 @@ public class BinaryTree implements Serializable {
         
            
             try (RandomAccessFile raf = new RandomAccessFile(fileName, "rw")) {
+            	raf.seek(0);
                 String nom = readString(raf, octetsPerString);
                 String prenom = readString(raf, octetsPerString);
                 String departement = readString(raf, octetsPerString);
@@ -235,8 +244,8 @@ public class BinaryTree implements Serializable {
                 int anneeFormation = raf.readInt();
                 first.setAnneeFormation(anneeFormation);
                 
-                Thread.sleep(1000);
-                raf.seek(raf.length());
+                Thread.sleep(1);
+                raf.seek(96);
                 Node firstNode = new Node(first);
                 firstNode.ajouterBinaire(stagiaireAjout,raf);
             } catch (IOException e) {

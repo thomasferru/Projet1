@@ -46,31 +46,46 @@ public class Node implements Serializable{
 	
 	public void ajouterBinaire(Stagiaire stagiaireAjout,RandomAccessFile raf) throws IOException {
 		
-		
+	
 		
 		//int comparaison =  this.nom.CompareTo(stagiaire.nom)
 		
 		if (stagiaireAjout.getNom().compareToIgnoreCase(this.getValue().getNom())<0) {
 			raf.seek(raf.getFilePointer()-12);
-			//raf.seek(raf.getFilePointer()+12);
+			
 			int indexExistantGauche =raf.readInt();
 			raf.seek(raf.getFilePointer()-4);
 			
 			if(indexExistantGauche == -1) {
 				
-				int indexFilsGauche = (int) raf.length()/96;
+				int indexFilsGauche = (int) (raf.length()/96);
 				raf.writeInt(indexFilsGauche);
 				
+				
 				//on ecrit le stagiaire a la fin du fichier binaire
-				raf.seek(raf.length());
-				raf.writeUTF(stagiaireAjout.getNom());
-	            raf.writeUTF(stagiaireAjout.getPrenom());
-	            raf.writeUTF(stagiaireAjout.getDepartement());
-	            raf.writeUTF(stagiaireAjout.getPromotion());
-	            raf.writeInt(stagiaireAjout.getAnneeFormation());
-	            raf.writeInt(-1);
-	            raf.writeInt(-1);
-	            raf.writeInt(-1);
+				try (FileOutputStream fileOutputStream = new FileOutputStream("example.bin",true);
+			             DataOutputStream dataOutputStream = new DataOutputStream(fileOutputStream)) {
+
+			           	            
+			            dataOutputStream.writeBytes(stagiaireAjout.getNom());
+			            
+			            dataOutputStream.writeBytes(stagiaireAjout.getPrenom());
+			          
+			            dataOutputStream.writeBytes(stagiaireAjout.getDepartement());
+			            
+			            dataOutputStream.writeBytes(stagiaireAjout.getPromotion());
+			           
+			            dataOutputStream.writeInt(stagiaireAjout.getAnneeFormation());
+			           
+			            dataOutputStream.writeInt(-1);
+			           
+			            dataOutputStream.writeInt(-1);
+			          
+			            dataOutputStream.writeInt(-1);
+	            
+				   } catch (IOException e) {
+			            e.printStackTrace();
+			        }
 	            
 				
 
@@ -78,48 +93,129 @@ public class Node implements Serializable{
 			}else {
 				
 				raf.seek(indexExistantGauche*96);
-				Node noeudGauche = new Node(stagiaireAjout);
+			
+				Stagiaire buffer = new Stagiaire(null, null, null, null, 0);
+				Node noeudGauche = new Node(buffer);
+				
 				noeudGauche.getValue().setNom(readString(raf,20));
 				noeudGauche.getValue().setPrenom(readString(raf,20));
 				noeudGauche.getValue().setDepartement(readString(raf,20));
 				noeudGauche.getValue().setPromotion(readString(raf,20));
 				noeudGauche.getValue().setAnneeFormation(raf.readInt());
+				raf.seek(raf.getFilePointer()+12);
+				
 				noeudGauche.ajouterBinaire(stagiaireAjout, raf);
 				
 			}
 			
 		}else if (stagiaireAjout.getNom().compareToIgnoreCase(this.getValue().getNom())>0) {
-				raf.seek(raf.length()-8);
+				raf.seek(raf.getFilePointer()-8);
 				
 				
 				int indexExistantDroit =raf.readInt();
+				raf.seek(raf.getFilePointer()-4);
 				
 				if(indexExistantDroit == -1) {
+				
+					int indexFilsDroit = (int) (raf.length()/96);
 					
-					int indexFilsDroit = (int) raf.length()/96;
 					raf.writeInt(indexFilsDroit);
 					
 					//on ecrit le stagiaire a la fin du fichier binaire
-					raf.seek(raf.length());
-					raf.writeUTF(stagiaireAjout.getNom());
-		            raf.writeUTF(stagiaireAjout.getPrenom());
-		            raf.writeUTF(stagiaireAjout.getDepartement());
-		            raf.writeUTF(stagiaireAjout.getPromotion());
-		            raf.writeInt(stagiaireAjout.getAnneeFormation());
-		            raf.writeInt(-1);
-		            raf.writeInt(-1);
-		            raf.writeInt(-1);
+					try (FileOutputStream fileOutputStream = new FileOutputStream("example.bin",true);
+				             DataOutputStream dataOutputStream = new DataOutputStream(fileOutputStream)) {
+
+				           	            
+				            dataOutputStream.writeBytes(stagiaireAjout.getNom());
+				            
+				            dataOutputStream.writeBytes(stagiaireAjout.getPrenom());
+				          
+				            dataOutputStream.writeBytes(stagiaireAjout.getDepartement());
+				            
+				            dataOutputStream.writeBytes(stagiaireAjout.getPromotion());
+				           
+				            dataOutputStream.writeInt(stagiaireAjout.getAnneeFormation());
+				           
+				            dataOutputStream.writeInt(-1);
+				           
+				            dataOutputStream.writeInt(-1);
+				          
+				            dataOutputStream.writeInt(-1);
+		            
+					   } catch (IOException e) {
+				            e.printStackTrace();
+				        }
+		            
 				}else {
 					
+					
 					raf.seek(indexExistantDroit*96);
-					Node noeudDroit = new Node(stagiaireAjout);
+					Stagiaire buffer = new Stagiaire(null, null, null, null, 0);
+					Node noeudDroit = new Node(buffer);
 					noeudDroit.getValue().setNom(readString(raf,20));
 					noeudDroit.getValue().setPrenom(readString(raf,20));
 					noeudDroit.getValue().setDepartement(readString(raf,20));
 					noeudDroit.getValue().setPromotion(readString(raf,20));
 					noeudDroit.getValue().setAnneeFormation(raf.readInt());
 					raf.seek(raf.getFilePointer()+12);
+					
 					noeudDroit.ajouterBinaire(stagiaireAjout, raf);
+					
+				}}else if (stagiaireAjout.getNom().compareToIgnoreCase(this.getValue().getNom())==0) {
+					
+					raf.seek(raf.getFilePointer()-4);
+					
+					
+					int indexExistantDouble =raf.readInt();
+					raf.seek(raf.getFilePointer()-4);
+					
+					if(indexExistantDouble == -1) {
+					
+						int indexFilsDoublon = (int) (raf.length()/96);
+						
+						raf.writeInt(indexFilsDoublon);
+						
+						//on ecrit le stagiaire a la fin du fichier binaire
+						try (FileOutputStream fileOutputStream = new FileOutputStream("example.bin",true);
+					             DataOutputStream dataOutputStream = new DataOutputStream(fileOutputStream)) {
+
+					           	            
+					            dataOutputStream.writeBytes(stagiaireAjout.getNom());
+					            
+					            dataOutputStream.writeBytes(stagiaireAjout.getPrenom());
+					          
+					            dataOutputStream.writeBytes(stagiaireAjout.getDepartement());
+					            
+					            dataOutputStream.writeBytes(stagiaireAjout.getPromotion());
+					           
+					            dataOutputStream.writeInt(stagiaireAjout.getAnneeFormation());
+					           
+					            dataOutputStream.writeInt(-1);
+					           
+					            dataOutputStream.writeInt(-1);
+					          
+					            dataOutputStream.writeInt(-1);
+			            
+						   } catch (IOException e) {
+					            e.printStackTrace();
+					        }
+			            
+					}else {
+						
+						
+						raf.seek(indexExistantDouble*96);
+						Stagiaire buffer = new Stagiaire(null, null, null, null, 0);
+						Node noeudDouble = new Node(buffer);
+						noeudDouble.getValue().setNom(readString(raf,20));
+						noeudDouble.getValue().setPrenom(readString(raf,20));
+						noeudDouble.getValue().setDepartement(readString(raf,20));
+						noeudDouble.getValue().setPromotion(readString(raf,20));
+						noeudDouble.getValue().setAnneeFormation(raf.readInt());
+						raf.seek(raf.getFilePointer()+12);
+						
+						noeudDouble.ajouterBinaire(stagiaireAjout, raf);
+						
+					
 					
 				}
 		
