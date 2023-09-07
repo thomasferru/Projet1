@@ -43,6 +43,13 @@ public class Node implements Serializable {
 	 * } }
 	 */
 
+	/**
+	 * La méthode ajouterBinaire permet d'ajouter un stagiaire dans le fichier binaire de façon aléatoire
+	 * elle prend en paramètre stagiaireAjout et le pointeur (raf)
+	 *Si le nom du stagiaire à ajouter est plus petit que le nom présent dans le noeud courant,on part à gauche.
+	 *L'index du fils gauche est égal à la taille du fichier divisée par la taille du noeud.
+	 *
+	 */
 	public void ajouterBinaire(Stagiaire stagiaireAjout, RandomAccessFile raf) throws IOException {
 
 		// int comparaison = this.nom.CompareTo(stagiaire.nom)
