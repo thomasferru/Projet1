@@ -1,12 +1,14 @@
 package annuaireIsika.Annuaire.Front.BorderPane;
 
+import java.io.IOException;
+
 import javafx.scene.layout.BorderPane;
 
 public class MainBorderPane extends BorderPane {
 	
 	private boolean connect = false;
 
-	public MainBorderPane(boolean connect) {
+	public MainBorderPane(boolean connect) throws IOException {
 		super();
 		this.connect = connect;
 
