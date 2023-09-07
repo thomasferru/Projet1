@@ -1,7 +1,9 @@
 package annuaireIsika.Annuaire.Front;
 
+import java.io.IOException;
 import java.util.List;
 
+import annuaireIsika.Annuaire.back.BinToList;
 import annuaireIsika.Annuaire.back.BinaryTree;
 import annuaireIsika.Annuaire.back.Stagiaire;
 import javafx.collections.FXCollections;
@@ -19,7 +21,7 @@ public class TableV extends VBox {
 
 	private BinaryTree tree;
 
-	public TableV(boolean connect) {
+	public TableV(boolean connect) throws IOException {
 		super();
 		this.connect = connect;
 		tree = new BinaryTree(new Stagiaire(null, null, null, null, 0));
@@ -31,9 +33,10 @@ public class TableV extends VBox {
 
 		Stagiaire rootStagiaire = stagiaires.get(0);
 
-		BinaryTree test = new BinaryTree(rootStagiaire);
-
-		ObservableList<Stagiaire> list = test.makeAList();
+		
+		BinToList listFromBinFile = new BinToList();
+		Stagiaire aaa = new Stagiaire("aaaa", null, null, null, 0);
+		listFromBinFile.ajouterUnStagiaireAuFichier("aaa");
 		System.out.println(stagiaires);
 
 		if (connect == true) {
