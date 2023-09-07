@@ -37,6 +37,8 @@ public class TableV extends VBox {
 		BinToList listFromBinFile = new BinToList();
 		Stagiaire aaa = new Stagiaire("aaaa", null, null, null, 0);
 //		listFromBinFile.ajouterUnStagiaireAuFichier("aaa");
+//		listFromBinFile.ajouterUnStagiaireAuFichier("aaa");
+//		listFromBinFile.ajouterUnStagiaireAuFichier("aaa");
 		System.out.println(stagiaires);
 
 		if (connect == true) {
