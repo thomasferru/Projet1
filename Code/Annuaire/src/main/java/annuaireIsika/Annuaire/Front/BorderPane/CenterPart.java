@@ -1,6 +1,7 @@
 package annuaireIsika.Annuaire.Front.BorderPane;
 
 import java.io.File;
+import java.io.IOException;
 
 import annuaireIsika.Annuaire.Front.AddView;
 import annuaireIsika.Annuaire.Front.GeneratePDF;
@@ -24,7 +25,7 @@ public class CenterPart extends VBox {
 	private boolean connect;
 	private MainBorderPane mainBorderPane;
 
-	public CenterPart(MainBorderPane mainBorderPane,boolean connect) {
+	public CenterPart(MainBorderPane mainBorderPane,boolean connect) throws IOException {
 		super();
 		this.connect = connect;
 		Label h1 = new Label("STAGIAIRES ISIKA");
