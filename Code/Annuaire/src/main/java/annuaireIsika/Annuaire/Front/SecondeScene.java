@@ -24,7 +24,7 @@ public class SecondeScene extends VBox {
 		super(24);
 
 		Label h1 = new Label("Connexion");
-		Font fontH1 = Font.loadFont(getClass().getResource("/font/OpenSans-Bold.ttf").toExternalForm(), 34);
+		Font fontH1 = Font.loadFont(getClass().getResource("/font/OpenSans-Bold.ttf").toExternalForm(), 36);
 		h1.setFont(fontH1);
 
 		PasswordField passwordField = new PasswordField();
