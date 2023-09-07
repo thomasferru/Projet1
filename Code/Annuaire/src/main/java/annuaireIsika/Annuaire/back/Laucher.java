@@ -11,16 +11,16 @@ public class Laucher {
 		Stagiaire stagFile = new Stagiaire(null, null, null, null, 0);
 		BinaryTree tree = new BinaryTree(stagFile);
 		tree.treeToFile();
-		System.out.println(stagFile.loadFromTheFile());
-		System.out.println(stagFile.loadFromTheFile().get(3).getNom());
+		//System.out.println(stagFile.loadFromTheFile());
+		//System.out.println(stagFile.loadFromTheFile().get(3).getNom());
 		;
+	}
 }
-
-	private static BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
-		// TODO Auto-generated method stub
-		BinaryTree result = new BinaryTree((stagiaires.get(0)));
-		for (Stagiaire stagiaire : stagiaires) {
-			result.getRoot().ajouter(stagiaire);
-		}
-		return result;
-	}}
+//	private static BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
+//		// TODO Auto-generated method stub
+//		BinaryTree result = new BinaryTree((stagiaires.get(0)));
+//		for (Stagiaire stagiaire : stagiaires) {
+//			result.getRoot().ajouter(stagiaire);
+//		}
+//		return result;
+//	}}

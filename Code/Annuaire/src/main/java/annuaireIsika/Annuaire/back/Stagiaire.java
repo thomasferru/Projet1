@@ -9,7 +9,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class Stagiaire implements Serializable{
-
+	public static final int TAILLE_NOM = 22;
+	public static final int TAILLE_PRENOM = 20;
+	public static final int TAILLE_DPT = 3;
+	public static final int TAILLE_PROMO = 12;
+	public static final int TAILLE_STAGIAIRE_OCTET = (TAILLE_NOM + TAILLE_PRENOM + TAILLE_DPT + TAILLE_PROMO) *2 + 4;
+	
 	private String nom;
 	private String prenom;
 	private String departement;
@@ -30,13 +35,13 @@ public class Stagiaire implements Serializable{
 	}
 	
 	public void setStagiaireTailleOctets() {
-		while(nom.length()<20) {
+		while(nom.length()<TAILLE_NOM) {
 			nom=nom+" ";}
-		while(prenom.length()<20) {
+		while(prenom.length()<TAILLE_PRENOM) {
 			prenom=prenom+" ";}
-		while(departement.length()<20) {
+		while(departement.length()<TAILLE_DPT) {
 			departement=departement+" ";}
-		while(promotion.length()<20) {
+		while(promotion.length()<TAILLE_PROMO) {
 			promotion=promotion+" ";}
 	}
 		
