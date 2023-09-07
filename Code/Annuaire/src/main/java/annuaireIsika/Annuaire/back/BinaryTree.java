@@ -7,6 +7,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,6 +26,7 @@ public class BinaryTree implements Serializable {
 
 	private Stagiaire stagiaireFile;
 	private Node root;
+	private RandomAccessFile raf = null;
 	
 	
 	@Override
@@ -38,6 +40,11 @@ public class BinaryTree implements Serializable {
 		super();
 		this.root = new Node(root);
 		stagiaireFile = new Stagiaire("", "", "", "", 0);
+		try {
+			raf = new RandomAccessFile("example.bin","rw" );
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -51,32 +58,32 @@ public class BinaryTree implements Serializable {
 
 	// methodes
 	// a enlever
-	public BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
-		BinaryTree result = new BinaryTree((stagiaires.get(0)));
-		for (Stagiaire stagiaire : stagiaires) {
-			result.getRoot().ajouter(stagiaire);
-		}
-		return result;
-
-	}
+//	public BinaryTree fromArrayToTree(List<Stagiaire> stagiaires) {
+//		BinaryTree result = new BinaryTree((stagiaires.get(0)));
+//		for (Stagiaire stagiaire : stagiaires) {
+//			result.getRoot().ajouter(stagiaire);
+//		}
+//		return result;
+//
+//	}
 
 	// faire un liste
 
-	public ObservableList<Stagiaire> makeAList() {
-		ObservableList<Stagiaire> observableList = FXCollections.observableArrayList();
-		makeAListRecursive(this.root, observableList);
-		return observableList;
-	}
+//	public ObservableList<Stagiaire> makeAList() {
+//		ObservableList<Stagiaire> observableList = FXCollections.observableArrayList();
+//		makeAListRecursive(this.root, observableList);
+//		return observableList;
+//	}
 
-	private void makeAListRecursive(Node node, ObservableList<Stagiaire> observableList) {
-		if (node == null) {
-			return; // Arrêt de la récursion si le nœud est nul
-		}
-
-		makeAListRecursive(node.getLeft(), observableList); // Parcours du sous-arbre gauche (G)
-		observableList.add(node.getValue()); // Ajout du nœud courant à l'ObservableList
-		makeAListRecursive(node.getRight(), observableList); // Parcours du sous-arbre droit (D)
-	}
+//	private void makeAListRecursive(Node node, ObservableList<Stagiaire> observableList) {
+//		if (node == null) {
+//			return; // Arrêt de la récursion si le nœud est nul
+//		}
+//
+//		makeAListRecursive(node.getLeft(), observableList); // Parcours du sous-arbre gauche (G)
+//		observableList.add(node.getValue()); // Ajout du nœud courant à l'ObservableList
+//		makeAListRecursive(node.getRight(), observableList); // Parcours du sous-arbre droit (D)
+//	}
 
 	// utiliser celle de stagiaire plutot
 	public List<Stagiaire> loadFromTheFile() {
@@ -178,40 +185,36 @@ public class BinaryTree implements Serializable {
 	}
 	
 	public void ajouterArbre(Stagiaire stagiaireAjout) throws IOException, InterruptedException {
-		File file = new File("example.bin");
-		//si arbre vide -> si ton fichier binaire est vide 
-		//tu te mets au debut du fichier et tu éris noeudAjout (stagiaire, -1,-1)
-	
-		String fileName = "example.bin";
+		System.out.println(stagiaireAjout);
+		
 		// si le fichier est vide
-		if (file.length()==0) {
+		if (raf.length()==0) {
 			
 
-	        try (FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-	             DataOutputStream dataOutputStream = new DataOutputStream(fileOutputStream)) {
+	      try {
 
 	            // Write binary data to the file
 	           
 	            
-	            dataOutputStream.writeBytes(stagiaireAjout.getNom());
+	            raf.writeChars(stagiaireAjout.getNom());
 	            
-	            dataOutputStream.writeBytes(stagiaireAjout.getPrenom());
+	            raf.writeChars(stagiaireAjout.getPrenom());
 	          
-	            dataOutputStream.writeBytes(stagiaireAjout.getDepartement());
+	            raf.writeChars(stagiaireAjout.getDepartement());
 	            
-	            dataOutputStream.writeBytes(stagiaireAjout.getPromotion());
+	            raf.writeChars(stagiaireAjout.getPromotion());
 	           
-	            dataOutputStream.writeInt(stagiaireAjout.getAnneeFormation());
+	            raf.writeInt(stagiaireAjout.getAnneeFormation());
 	           
-	            dataOutputStream.writeInt(-1);
+	            raf.writeInt(-1);
 	           
-	            dataOutputStream.writeInt(-1);
+	            raf.writeInt(-1);
 	          
-	            dataOutputStream.writeInt(-1);
+	            raf.writeInt(-1);
 	            
 	          
 
-	            System.out.println("Data has been written to " + fileName);
+	            System.out.println("Data has been written to binary" );
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
@@ -223,18 +226,15 @@ public class BinaryTree implements Serializable {
 			//tu lis le premier noeud tu le stockes dans une variable racine
 
 		Stagiaire first = new Stagiaire(null, null, null, null, 0);
-		int totalOctets = 160;
-        int octetsPerString = 20;
-        int numStrings = totalOctets / octetsPerString;
-
-        
+		 Node firstNode = new Node(first);
+		       
            
-            try (RandomAccessFile raf = new RandomAccessFile(fileName, "rw")) {
+            try  {
             	raf.seek(0);
-                String nom = readString(raf, octetsPerString);
-                String prenom = readString(raf, octetsPerString);
-                String departement = readString(raf, octetsPerString);
-                String promotion = readString(raf, octetsPerString);
+                String nom = firstNode.readString(raf, Stagiaire.TAILLE_NOM);
+                String prenom = firstNode.readString(raf, Stagiaire.TAILLE_PRENOM);
+                String departement = firstNode.readString(raf, Stagiaire.TAILLE_DPT);
+                String promotion = firstNode.readString(raf, Stagiaire.TAILLE_PROMO);
 
                 first.setNom(nom);
                 first.setPrenom(prenom);
@@ -244,9 +244,12 @@ public class BinaryTree implements Serializable {
                 int anneeFormation = raf.readInt();
                 first.setAnneeFormation(anneeFormation);
                 
-                Thread.sleep(1);
-                raf.seek(96);
-                Node firstNode = new Node(first);
+                //Thread.sleep(1);
+               // raf.seek(96);
+                firstNode = new Node(first);
+                firstNode.setLeft(raf.readInt());
+                firstNode.setRight(raf.readInt());
+                firstNode.setDoublon(raf.readInt());
                 firstNode.ajouterBinaire(stagiaireAjout,raf);
             } catch (IOException e) {
                 e.printStackTrace();}
@@ -256,17 +259,8 @@ public class BinaryTree implements Serializable {
             }
 	
             
-            private static String readString(RandomAccessFile raf, int length) throws IOException {
-                byte[] buffer = new byte[length];
-                int bytesRead = raf.read(buffer);
-
-                if (bytesRead != -1) {
-                    return new String(buffer, "UTF-8"); // Adjust encoding if necessary
-                } else {
-                    return null;
-                
-            }
+           
 	
-	}}
+	}
 
 
