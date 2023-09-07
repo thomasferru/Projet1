@@ -99,6 +99,7 @@ public class RightPart extends BorderPane {
 		Button btnValider = new Button("Valider ");
 		btnValider.setFont(fontlbl);
 		btnValider.setStyle("-fx-background-color: #F8C822;");
+		
 		btnValider.setPrefWidth(150);
 
 		searchVB.getChildren().addAll(lb, txtFieldNom, txtFieldPrenom, txtFieldDepartement, txtFieldClasse,

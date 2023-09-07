@@ -1,5 +1,6 @@
 package annuaireIsika.Annuaire.Front.BorderPane;
 
+import annuaireIsika.Annuaire.Front.GeneratePDF;
 import annuaireIsika.Annuaire.Front.TableV;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,16 +20,23 @@ public class CenterPart extends VBox {
 		VBox tbvContainer = new VBox();
 		TableV tbView = new TableV();
 		tbvContainer.getChildren().addAll(tbView);
-		
+
 		Button btnPdf = new Button("Générer PDF");
 		Font fontBtnPDF = Font.loadFont(getClass().getResource("/font/OpenSans-Bold.ttf").toExternalForm(), 14);
 
 		btnPdf.setFont(fontBtnPDF);
 		btnPdf.setStyle("-fx-background-color: #F8C822;");
 		btnPdf.setPrefWidth(150);
-		
-		//container 
-		VBox container = new VBox(24); 
+
+		btnPdf.setOnAction(event -> {
+
+			String outputPath = "tbv.pdf"; // Spécifiez le chemin de sortie souhaité
+			GeneratePDF.exportToPdf(tbView, outputPath);
+			System.out.println("test");
+		});
+
+		// container
+		VBox container = new VBox(24);
 		container.getChildren().addAll(h1, tbvContainer, btnPdf);
 		container.setAlignment(Pos.CENTER);
 

@@ -13,7 +13,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
-        MainBorderPane root = new MainBorderPane();
+        MainBorderPane root = new MainBorderPane(false);
         Scene scene = new Scene(root,1024,640);
         stage.setScene(scene);
         stage.show();

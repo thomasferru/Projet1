@@ -34,10 +34,7 @@ public class LeftPart extends VBox {
 		txtFieldNom.setPromptText("Nom");
 		txtFieldNom.setPrefWidth(150);
 
-		TextField txtFieldPrenom = new TextField();
-		txtFieldPrenom.setFont(fontTxtFiel);
-		txtFieldPrenom.setPromptText("Prenom");
-		txtFieldNom.setPrefWidth(150);
+	
 
 		Button btnValider = new Button("Valider ");
 		btnValider.setFont(fontlbl);
@@ -46,7 +43,7 @@ public class LeftPart extends VBox {
 		
 		
 		
-		searchVB.getChildren().addAll(lb, txtFieldNom, txtFieldPrenom, btnValider);
+		searchVB.getChildren().addAll(lb, txtFieldNom, btnValider);
 		this.getChildren().addAll(searchVB);
 		this.setStyle("-fx-background-color: #272A33;");
 		this.setPrefWidth(224);
