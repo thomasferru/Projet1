@@ -16,6 +16,12 @@
 			<version>18.0.2</version>
 			<classifier>mac-aarch64</classifier>
 		</dependency>
+		<!--pdf-->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.13.3</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
