@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import annuaireIsika.Annuaire.Front.SecondeScene;
+import annuaireIsika.Annuaire.back.BinToList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -164,5 +165,39 @@ public class TestRight extends BorderPane {
 		this.setStyle("-fx-background-color: #272A33;");
 		this.setPrefWidth(224);
 		this.setPadding(new Insets(24));
+		
+		btnValider.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+			
+			String nom = txtFieldNom.getText();
+			String prenom = txtFieldPrenom.getText();
+			String departement = txtFieldDepartement.getText();
+			String promo = txtFieldClasse.getText();
+			while (nom.length()<22 ) {
+				nom+=" ";
+			}
+			while (prenom.length()<20 ) {
+				prenom+=" ";
+			}
+			while (departement.length()<3 ) {
+				departement+=" ";
+			}
+			while (promo.length()<12 ) {
+				promo+=" ";
+			}
+			System.out.println(nom);
+			try {
+				BinToList test = new BinToList();
+				System.out.println( test.rechercheMultiple(nom,prenom,departement,promo,0));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			}});
+
 	}
-}
+	}
+

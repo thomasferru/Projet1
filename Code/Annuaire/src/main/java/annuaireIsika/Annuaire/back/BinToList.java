@@ -174,13 +174,18 @@ public class BinToList {
 		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
 		List<Stagiaire> resultats = new ArrayList<>();
 		Node noeudCourant = litUnNodeDuFichier(raf);
+		String nomVide = "                      ";
+		String prenomVIde = "                    ";
+		String depVide= "   ";
+		String promoVode = "            ";
 		while (raf.getFilePointer()<raf.length()) {
-		if ((nomChercher!=null)||(nomChercher!=noeudCourant.getValue().getNom())&&(prenom!=null)||(prenom!=noeudCourant.getValue().getPrenom())
-				&&(departement!=null)||(departement!=noeudCourant.getValue().getDepartement())&&(formation!=null)||(formation!=noeudCourant.getValue().getPromotion())
-				&&(annee!=0)||(annee!=noeudCourant.getValue().getAnneeFormation())) {
+		if (((nomChercher.compareTo(nomVide)==0)||(nomChercher.compareTo(noeudCourant.getValue().getNom()))==0)&((prenom.compareTo(prenomVIde)==0)||(prenom.compareTo(noeudCourant.getValue().getPrenom()))==0)
+				&((departement.compareTo(depVide)==0)||(departement.compareTo(noeudCourant.getValue().getDepartement()))==0)&((formation.compareTo(promoVode)==0)||(formation.compareTo(noeudCourant.getValue().getPromotion())
+				)==0)&((annee==0)||(annee==noeudCourant.getValue().getAnneeFormation()))) {
+			resultats.add(noeudCourant.getValue());
 			noeudCourant = litUnNodeDuFichier(raf);
 		}else {
-			resultats.add(noeudCourant.getValue());
+			
 			noeudCourant = litUnNodeDuFichier(raf);
 		}
 		}

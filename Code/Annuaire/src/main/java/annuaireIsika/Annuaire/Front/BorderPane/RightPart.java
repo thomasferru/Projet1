@@ -1,8 +1,10 @@
 package annuaireIsika.Annuaire.Front.BorderPane;
 
 import java.io.File;
+import java.io.IOException;
 
 import annuaireIsika.Annuaire.Front.SecondeScene;
+import annuaireIsika.Annuaire.back.BinToList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -111,5 +113,6 @@ public class RightPart extends BorderPane {
 		this.setStyle("-fx-background-color: #272A33;");
 		this.setPrefWidth(224);
 		this.setPadding(new Insets(24));
-	}
-}
+		
+	}}
+

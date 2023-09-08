@@ -40,6 +40,7 @@ public class TableV extends VBox {
 		aaa.setStagiaireTailleOctets();
 		listFromBinFile.ajouterUnStagiaireAuFichier(aaa);
 		System.out.println(listFromBinFile.Rechercher("ROIGNANT              "));
+		
 
 //		listFromBinFile.ajouterUnStagiaireAuFichier("aaa");
 
