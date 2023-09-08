@@ -115,8 +115,8 @@ public class BinToList {
 			}
 		}
 	}
-	
-	public List<Stagiaire> Recherche (Nom nomChercher){
+	}
+	//public List<Stagiaire> Recherche (Nom nomChercher){
 		// je creer un RandomAcceFiles
 		//je creer un lise de stagiaire
 		//Je creer un booleans pour savoir quand arreter la boucle et le met en false
@@ -139,8 +139,8 @@ public class BinToList {
 				//sinon
 					//je passe le boleans en true
 		//je renvoie la liste
-	}
-		}
+	
+		//}
 
 	public void ecrireUnNode(Stagiaire stagiaireAjout, RandomAccessFile raf) throws IOException {
 		raf.writeChars(stagiaireAjout.getNom());
