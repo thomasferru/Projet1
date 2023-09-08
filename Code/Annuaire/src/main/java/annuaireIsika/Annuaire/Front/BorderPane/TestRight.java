@@ -1,6 +1,7 @@
 package annuaireIsika.Annuaire.Front.BorderPane;
 
 import java.io.File;
+import java.io.IOException;
 
 import annuaireIsika.Annuaire.Front.SecondeScene;
 import javafx.event.ActionEvent;
@@ -64,7 +65,12 @@ public class TestRight extends BorderPane {
 				public void handle(ActionEvent event) {
 //					mainBorderPane.setCenter(new MainBorderPane(false));
 					Stage stage = (Stage) TestRight.this.getScene().getWindow();
-					stage.setScene(new Scene(new MainBorderPane(false), 1024, 640));
+					try {
+						stage.setScene(new Scene(new MainBorderPane(false), 1024, 640));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					stage.show();
 				}
 			});
