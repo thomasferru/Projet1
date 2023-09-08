@@ -105,8 +105,8 @@ public class BinToList {
 					rafs.writeInt(indexDroit);
 					rafs.seek(rafs.length());
 					ecrireUnNode(stagiaireAjouter, rafs);
-				} else if (buffer.getLeft() != -1) {
-					rafs.seek((buffer.getLeft() * buffer.getTaille_Noeud()));
+				} else if (buffer.getRight() != -1) {
+					rafs.seek((buffer.getRight() * buffer.getTaille_Noeud()));
 
 				}
 			} else if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) == 0) {

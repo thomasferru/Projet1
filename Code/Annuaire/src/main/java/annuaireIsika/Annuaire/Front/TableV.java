@@ -36,7 +36,7 @@ public class TableV extends VBox {
 
 		
 		BinToList listFromBinFile = new BinToList();
-		Stagiaire aaa = new Stagiaire("aaaa", "aa",  "aa",  "aa", 0);
+		Stagiaire aaa = new Stagiaire("bbbb", "aa",  "aa",  "aa", 0);
 		aaa.setStagiaireTailleOctets();
 		listFromBinFile.ajouterUnStagiaireAuFichier(aaa);
 
