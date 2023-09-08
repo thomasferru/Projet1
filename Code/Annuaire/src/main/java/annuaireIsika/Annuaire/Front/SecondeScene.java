@@ -1,6 +1,8 @@
 
 package annuaireIsika.Annuaire.Front;
 
+import java.io.IOException;
+
 import annuaireIsika.Annuaire.Front.BorderPane.MainBorderPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -61,7 +63,12 @@ public class SecondeScene extends VBox {
 
 				if (passwordField.getText().equals(password)) {
 					Stage stage = (Stage) SecondeScene.this.getScene().getWindow();
-					stage.setScene(new Scene(new MainBorderPane(true), 1024, 640));
+					try {
+						stage.setScene(new Scene(new MainBorderPane(true), 1024, 640));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					stage.show();
 				}else {
 					passwordField.setStyle("-fx-border-color: red;");
@@ -76,7 +83,12 @@ public class SecondeScene extends VBox {
 			public void handle(ActionEvent event) {
 
 				Stage stage = (Stage) SecondeScene.this.getScene().getWindow();
-				stage.setScene(new Scene(new MainBorderPane(false), 1024, 640));
+				try {
+					stage.setScene(new Scene(new MainBorderPane(false), 1024, 640));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				stage.show();
 			}
 
@@ -87,7 +99,12 @@ public class SecondeScene extends VBox {
 		    public void handle(ActionEvent event) {
 		        if (passwordField.getText().equals(password)) {
 		            Stage stage = (Stage) SecondeScene.this.getScene().getWindow();
-		            stage.setScene(new Scene(new MainBorderPane(true), 1024, 640));
+		            try {
+						stage.setScene(new Scene(new MainBorderPane(true), 1024, 640));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 		            stage.show();
 		        }else {
 					passwordField.setStyle("-fx-border-color: red;");

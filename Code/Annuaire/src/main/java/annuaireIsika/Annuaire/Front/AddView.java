@@ -1,6 +1,8 @@
 package annuaireIsika.Annuaire.Front;
 
 import java.io.File;
+import java.io.IOException;
+
 import annuaireIsika.Annuaire.Front.BorderPane.MainBorderPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -94,7 +96,12 @@ public class AddView extends VBox {
 			public void handle(ActionEvent event) {
 
 				Stage stage = (Stage) AddView.this.getScene().getWindow();
-				stage.setScene(new Scene(new MainBorderPane(true), 1024, 640));
+				try {
+					stage.setScene(new Scene(new MainBorderPane(true), 1024, 640));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				stage.show();
 			}
 
