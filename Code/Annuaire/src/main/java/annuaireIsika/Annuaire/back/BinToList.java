@@ -2,18 +2,17 @@ package annuaireIsika.Annuaire.back;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 public class BinToList {
-	//private RandomAccessFile rafs;
+	// private RandomAccessFile rafs;
+	 
 
 	public BinToList() throws IOException {
 		super();
-		//rafs = new RandomAccessFile("example.bin", "rw");
-		
+		// rafs = new RandomAccessFile("example.bin", "rw");
+
 	}
 
 	/**
@@ -21,18 +20,26 @@ public class BinToList {
 	 *
 	 *
 	 * @return Une observable liste de stagiaire
+	 * @throws InterruptedException 
 	 */
-	public ObservableList<Stagiaire> binToList() throws IOException {
-		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
-		ObservableList<Stagiaire> stagiairesList = FXCollections.observableArrayList();
+	public List<Stagiaire> binToList(){
+		List<Stagiaire> stagiairesList = new ArrayList<>();
+		
 
-		while (raf.getFilePointer() < raf.length()) {
-			Node node = litUnNodeDuFichier(raf);
-			Stagiaire stagiaire = node.getValue();
-			stagiairesList.add(stagiaire);
+		try {
+			RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
+			while (raf.getFilePointer() < raf.length()) {
+				Node node = litUnNodeDuFichier(raf);
+				Stagiaire stagiaire = node.getValue();
+				stagiairesList.add(stagiaire);
+			}
+			raf.close();
+			System.out.println(stagiairesList);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		raf.close();
-
+	
 		return stagiairesList;
 	}
 
@@ -75,72 +82,72 @@ public class BinToList {
 
 	public void ajouterUnStagiaireAuFichier(Stagiaire stagiaireAjouter) throws IOException {
 
-	RandomAccessFile rafs = new RandomAccessFile("example.bin", "rw");
-	int tailleFichierAvantAjout = (int) rafs.length();
-	while(rafs.length()==tailleFichierAvantAjout) {
-		System.out.println(tailleFichierAvantAjout);
-		Node buffer = litUnNodeDuFichier(rafs);
-		if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) < 0) {
-			if (buffer.getLeft() == -1) {
-				rafs.seek(rafs.getFilePointer() - 12);
-				int indexGauche = (int) (rafs.length() / buffer.getTaille_Noeud());
-				rafs.writeInt(indexGauche);
-				rafs.seek(rafs.length());
-				ecrireUnNode(stagiaireAjouter, rafs);
-			} else if (buffer.getLeft() != -1) {
-				rafs.seek((buffer.getLeft() * buffer.getTaille_Noeud()));
-				ajouterUnStagiaireAuFichier(stagiaireAjouter);
-			}
-		} else if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) > 0) {
-			if (buffer.getRight() == -1) {
-				rafs.seek(rafs.getFilePointer() - 8);
-				int indexDroit = (int) (rafs.length() / buffer.getTaille_Noeud());
-				rafs.writeInt(indexDroit);
-				rafs.seek(rafs.length());
-				ecrireUnNode(stagiaireAjouter, rafs);
-			} else if (buffer.getLeft() != -1) {
-				rafs.seek((buffer.getLeft() * buffer.getTaille_Noeud()));
-				
-			}
-		} else if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) == 0) {
-			if (buffer.getDoublon() == -1) {
-				rafs.seek(rafs.getFilePointer() - 4);
-				int indexDouble = (int) (rafs.length() / buffer.getTaille_Noeud());
-				rafs.writeInt(indexDouble);
-				rafs.seek(rafs.length());
-				ecrireUnNode(stagiaireAjouter, rafs);
-			} else if (buffer.getLeft() != -1) {
-				rafs.seek((buffer.getDoublon() * buffer.getTaille_Noeud()));
-			
+		RandomAccessFile rafs = new RandomAccessFile("example.bin", "rw");
+		int tailleFichierAvantAjout = (int) rafs.length();
+		while (rafs.length() == tailleFichierAvantAjout) {
+			System.out.println(tailleFichierAvantAjout);
+			Node buffer = litUnNodeDuFichier(rafs);
+			if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) < 0) {
+				if (buffer.getLeft() == -1) {
+					rafs.seek(rafs.getFilePointer() - 12);
+					int indexGauche = (int) (rafs.length() / buffer.getTaille_Noeud());
+					rafs.writeInt(indexGauche);
+					rafs.seek(rafs.length());
+					ecrireUnNode(stagiaireAjouter, rafs);
+				} else if (buffer.getLeft() != -1) {
+					rafs.seek((buffer.getLeft() * buffer.getTaille_Noeud()));
+					ajouterUnStagiaireAuFichier(stagiaireAjouter);
+				}
+			} else if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) > 0) {
+				if (buffer.getRight() == -1) {
+					rafs.seek(rafs.getFilePointer() - 8);
+					int indexDroit = (int) (rafs.length() / buffer.getTaille_Noeud());
+					rafs.writeInt(indexDroit);
+					rafs.seek(rafs.length());
+					ecrireUnNode(stagiaireAjouter, rafs);
+				} else if (buffer.getLeft() != -1) {
+					rafs.seek((buffer.getLeft() * buffer.getTaille_Noeud()));
+
+				}
+			} else if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) == 0) {
+				if (buffer.getDoublon() == -1) {
+					rafs.seek(rafs.getFilePointer() - 4);
+					int indexDouble = (int) (rafs.length() / buffer.getTaille_Noeud());
+					rafs.writeInt(indexDouble);
+					rafs.seek(rafs.length());
+					ecrireUnNode(stagiaireAjouter, rafs);
+				} else if (buffer.getLeft() != -1) {
+					rafs.seek((buffer.getDoublon() * buffer.getTaille_Noeud()));
+
+				}
 			}
 		}
 	}
-	}
-	//public List<Stagiaire> Recherche (Nom nomChercher){
-		// je creer un RandomAcceFiles
-		//je creer un lise de stagiaire
-		//Je creer un booleans pour savoir quand arreter la boucle et le met en false
-		//tant que false
-			//je litUnNodeDuFichier avec la methode en haut 
-			// si le nom (getValue().getNom()) est plus petit que le nomChercher
-				//Si la valeur gauche (getValue().getLeft()) est -1
-					//je passe le bolleans en true
-				//sinon 
-					//je met la raf a (getValue().getLeft())*176
-			// si le nom (getValue().getNom()) est plus grand que le nomChercher
-				//Si la valeur droit (getValue().getRight()) est -1
-				//je passe le bolleans en true
-			//sinon 
-				//je met la raf a (getValue().getLeft())*176
-			//si le nom (getValue().getNom()) est egale au nomChercher
-				//je met le stagiaire dans la liste
-				//si  (getValue().getDouble())!=-1
-					//je met la raf a (getValue().getDouble())*176
-				//sinon
-					//je passe le boleans en true
-		//je renvoie la liste
-	
-		//}
+	// public List<Stagiaire> Recherche (Nom nomChercher){
+	// je creer un RandomAcceFiles
+	// je creer un lise de stagiaire
+	// Je creer un booleans pour savoir quand arreter la boucle et le met en false
+	// tant que false
+	// je litUnNodeDuFichier avec la methode en haut
+	// si le nom (getValue().getNom()) est plus petit que le nomChercher
+	// Si la valeur gauche (getValue().getLeft()) est -1
+	// je passe le bolleans en true
+	// sinon
+	// je met la raf a (getValue().getLeft())*176
+	// si le nom (getValue().getNom()) est plus grand que le nomChercher
+	// Si la valeur droit (getValue().getRight()) est -1
+	// je passe le bolleans en true
+	// sinon
+	// je met la raf a (getValue().getLeft())*176
+	// si le nom (getValue().getNom()) est egale au nomChercher
+	// je met le stagiaire dans la liste
+	// si (getValue().getDouble())!=-1
+	// je met la raf a (getValue().getDouble())*176
+	// sinon
+	// je passe le boleans en true
+	// je renvoie la liste
+
+	// }
 
 	public void ecrireUnNode(Stagiaire stagiaireAjout, RandomAccessFile raf) throws IOException {
 		raf.writeChars(stagiaireAjout.getNom());
@@ -152,6 +159,5 @@ public class BinToList {
 		raf.writeInt(-1);
 		raf.writeInt(-1);
 	}
-
 
 }

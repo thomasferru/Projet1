@@ -1,8 +1,6 @@
 package annuaireIsika.Annuaire.back;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.List;
 
 public class Laucher {
@@ -10,11 +8,14 @@ public class Laucher {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		Stagiaire stagFile = new Stagiaire(null, null, null, null, 0);
 		BinaryTree tree = new BinaryTree(stagFile);
-		tree.treeToFile();
+//		tree.treeToFile();
 		BinToList test = new BinToList();
-		test.binToList();
-		//System.out.println(stagFile.loadFromTheFile());
-		//System.out.println(stagFile.loadFromTheFile().get(3).getNom());
+		
+		List<Stagiaire> testt = test.binToList(); 
+		System.out.println(testt);
+
+		// System.out.println(stagFile.loadFromTheFile());
+		// System.out.println(stagFile.loadFromTheFile().get(3).getNom());
 		;
 	}
 }

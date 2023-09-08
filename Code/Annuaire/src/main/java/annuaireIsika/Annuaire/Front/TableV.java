@@ -29,9 +29,10 @@ public class TableV extends VBox {
 		TableView<Stagiaire> tableView = new TableView<>();
 
 		// test
-		List<Stagiaire> stagiaires = tree.loadFromTheFile();
+		
 
-		Stagiaire rootStagiaire = stagiaires.get(0);
+		BinToList test = new BinToList(); 
+		List<Stagiaire> testt = test.binToList();
 
 		
 		BinToList listFromBinFile = new BinToList();
@@ -39,7 +40,6 @@ public class TableV extends VBox {
 		listFromBinFile.ajouterUnStagiaireAuFichier(aaa);
 
 //		listFromBinFile.ajouterUnStagiaireAuFichier("aaa");
-		System.out.println(stagiaires);
 
 		if (connect == true) {
 			// colume bouton
@@ -82,7 +82,7 @@ public class TableV extends VBox {
 			tableView.getColumns().add(promoColumn);
 			tableView.getColumns().add(anneEntreeColumn);
 
-			tableView.setItems(FXCollections.observableArrayList(stagiaires));
+			tableView.setItems(FXCollections.observableArrayList(testt));
 			this.getChildren().add(tableView);
 
 		} else {
@@ -113,7 +113,7 @@ public class TableV extends VBox {
 			tableView.getColumns().add(promoColumn);
 			tableView.getColumns().add(anneEntreeColumn);
 			
-			tableView.setItems(FXCollections.observableArrayList(stagiaires));
+			tableView.setItems(FXCollections.observableArrayList(testt));
 			this.getChildren().add(tableView);
 		}
 	}
