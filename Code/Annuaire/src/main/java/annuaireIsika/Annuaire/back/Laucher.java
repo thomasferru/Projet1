@@ -8,11 +8,11 @@ public class Laucher {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		Stagiaire stagFile = new Stagiaire(null, null, null, null, 0);
 		BinaryTree tree = new BinaryTree(stagFile);
-//		tree.treeToFile();
-		BinToList test = new BinToList();
+		tree.treeToFile();
+		//BinToList test = new BinToList();
 		
-		List<Stagiaire> testt = test.binToList(); 
-		System.out.println(testt);
+		//List<Stagiaire> testt = test.binToList(); 
+		//System.out.println(testt);
 
 		// System.out.println(stagFile.loadFromTheFile());
 		// System.out.println(stagFile.loadFromTheFile().get(3).getNom());
