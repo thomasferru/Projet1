@@ -288,6 +288,9 @@ public class Node implements Serializable {
 	 * 
 	 * }
 	 */
+	
+	
+	
 
 	// getter setter
 
@@ -321,6 +324,9 @@ public class Node implements Serializable {
 
 	public void setDoublon(int doublon) {
 		this.doublon = doublon;
+	}
+	public int getTaille_Noeud() {
+		return this.TAILLE_NOEUD;
 	}
 
 	@Override
