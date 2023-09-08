@@ -2,6 +2,7 @@ package annuaireIsika.Annuaire.back;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -152,6 +153,64 @@ public class BinToList {
 		raf.writeInt(-1);
 		raf.writeInt(-1);
 	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public List<Stagiaire> rechercheMultiple (String nomChercher,String prenom,String departement,String formation,int annee) throws IOException{
+		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
+		List<Stagiaire> resultats = new ArrayList<>();
+		Node noeudCourant = litUnNodeDuFichier(raf);
+		while (raf.getFilePointer()<raf.length()) {
+		if ((nomChercher!=null)||(nomChercher!=noeudCourant.getValue().getNom())&&(prenom!=null)||(prenom!=noeudCourant.getValue().getPrenom())
+				&&(departement!=null)||(departement!=noeudCourant.getValue().getDepartement())&&(formation!=null)||(formation!=noeudCourant.getValue().getPromotion())
+				&&(annee!=0)||(annee!=noeudCourant.getValue().getAnneeFormation())) {
+			noeudCourant = litUnNodeDuFichier(raf);
+		}else {
+			resultats.add(noeudCourant.getValue());
+			noeudCourant = litUnNodeDuFichier(raf);
+		}
+		}
+		return resultats;
+		
+	}
+	
+	
+
+	
 
 
 }
