@@ -1,7 +1,6 @@
 package annuaireIsika.Annuaire.Front;
 
 import java.io.File;
-
 import annuaireIsika.Annuaire.Front.BorderPane.MainBorderPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,6 +18,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+/**Cette methode consiste à créer la partie centrale de la scene. Elle ne prend aucun parametre
+ * On crée une Vbox qu'on centre. Ensuite on y ajoute un label et les textField correspondant aux attributs du stagiaire
+ * On détermine la taille pour chaque cas.
+ *
+ */
 
 public class AddView extends VBox {
 	public AddView() {
@@ -57,6 +62,10 @@ public class AddView extends VBox {
 		txtFieldAnneEntreeFormation.setFont(fontTxtField);
 		txtFieldAnneEntreeFormation.setPromptText("Entrée en formation");
 		txtFieldAnneEntreeFormation.setPrefWidth(150);
+		
+		/** On crée une Hbox dans laquelle on ajoute un bouton
+		 * on met en place l'action qu'on voudrait losqu'on clique sur le bouton.
+		 */
 
 		HBox btnsContain = new HBox(24);
 
