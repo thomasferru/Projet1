@@ -1,5 +1,11 @@
 package annuaireIsika.Annuaire.Front.BorderPane;
 
+import java.io.IOException;
+
+import annuaireIsika.Annuaire.Front.AddView;
+import annuaireIsika.Annuaire.back.BinToList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -50,5 +56,25 @@ public class LeftPart extends VBox {
 		this.setAlignment(Pos.CENTER);
 		this.setPadding(new Insets(24));
 
+		
+		btnValider.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				String nomRechercher = txtFieldNom.getText();
+				while (nomRechercher.length()<22 ) {
+					nomRechercher+=" ";
+				}
+				try {
+					BinToList test = new BinToList();
+					System.out.println( test.Rechercher(nomRechercher));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+//				adminLbl.setTextFill(Color.RED);
+			}
+		});
 	}
 }
