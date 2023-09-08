@@ -2,6 +2,7 @@ package annuaireIsika.Annuaire.back;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -113,6 +114,31 @@ public class BinToList {
 			
 			}
 		}
+	}
+	
+	public List<Stagiaire> Recherche (Nom nomChercher){
+		// je creer un RandomAcceFiles
+		//je creer un lise de stagiaire
+		//Je creer un booleans pour savoir quand arreter la boucle et le met en false
+		//tant que false
+			//je litUnNodeDuFichier avec la methode en haut 
+			// si le nom (getValue().getNom()) est plus petit que le nomChercher
+				//Si la valeur gauche (getValue().getLeft()) est -1
+					//je passe le bolleans en true
+				//sinon 
+					//je met la raf a (getValue().getLeft())*176
+			// si le nom (getValue().getNom()) est plus grand que le nomChercher
+				//Si la valeur droit (getValue().getRight()) est -1
+				//je passe le bolleans en true
+			//sinon 
+				//je met la raf a (getValue().getLeft())*176
+			//si le nom (getValue().getNom()) est egale au nomChercher
+				//je met le stagiaire dans la liste
+				//si  (getValue().getDouble())!=-1
+					//je met la raf a (getValue().getDouble())*176
+				//sinon
+					//je passe le boleans en true
+		//je renvoie la liste
 	}
 		}
 
