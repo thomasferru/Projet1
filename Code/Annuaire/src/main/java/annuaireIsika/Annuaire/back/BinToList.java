@@ -5,11 +5,9 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 public class BinToList {
 	// private RandomAccessFile rafs;
+	 
 
 	public BinToList() throws IOException {
 		super();
@@ -22,18 +20,26 @@ public class BinToList {
 	 *
 	 *
 	 * @return Une observable liste de stagiaire
+	 * @throws InterruptedException 
 	 */
-	public ObservableList<Stagiaire> binToList() throws IOException {
-		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
-		ObservableList<Stagiaire> stagiairesList = FXCollections.observableArrayList();
+	public List<Stagiaire> binToList(){
+		List<Stagiaire> stagiairesList = new ArrayList<>();
+		
 
-		while (raf.getFilePointer() < raf.length()) {
-			Node node = litUnNodeDuFichier(raf);
-			Stagiaire stagiaire = node.getValue();
-			stagiairesList.add(stagiaire);
+		try {
+			RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
+			while (raf.getFilePointer() < raf.length()) {
+				Node node = litUnNodeDuFichier(raf);
+				Stagiaire stagiaire = node.getValue();
+				stagiairesList.add(stagiaire);
+			}
+			raf.close();
+			System.out.println(stagiairesList);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		raf.close();
-
+	
 		return stagiairesList;
 	}
 
@@ -99,8 +105,8 @@ public class BinToList {
 					rafs.writeInt(indexDroit);
 					rafs.seek(rafs.length());
 					ecrireUnNode(stagiaireAjouter, rafs);
-				} else if (buffer.getLeft() != -1) {
-					rafs.seek((buffer.getLeft() * buffer.getTaille_Noeud()));
+				} else if (buffer.getRight() != -1) {
+					rafs.seek((buffer.getRight() * buffer.getTaille_Noeud()));
 
 				}
 			} else if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) == 0) {
@@ -116,60 +122,44 @@ public class BinToList {
 				}
 			}
 		}
-
 	}
-
-	/**
-	 * Cette méthode consiste à rechercher un nom dans la liste et à le retourner je
-	 * crée un RandomAcceFiles je crée un liste de stagiaire Je crée un booleans
-	 * pour savoir quand arreter la boucle et le met en false tant que false je
-	 * litUnNodeDuFichier avec la methode en haut si le nom du noeud courant est
-	 * plus petit que le nomChercher Si la valeur gauche est -1 je passe le boolean
-	 * à true sinon je mets la raf a (getValue().getLeft())*176 si le nom du noeud
-	 * courant est plus grand que le nomChercher Si la valeur droit est -1 je passe
-	 * le bolean en true sinon je mets la raf a (getValue().getLeft())*176 si le nom
-	 * du noeud courant est egal au nomChercher je mets le stagiaire dans la liste
-	 * s'il y a un doublon, je met la raf a (getValue().getDouble())*176 sinon je
-	 * passe le boolean à true et je renvoie la liste
-	 * 
-	 * @param nomChercher
-	 * @return une liste
-	 * @throws IOException
-	 */
-
+	
+	
+	
 	public List<Stagiaire> Rechercher(String nomChercher) throws IOException {
-
+		int TAILLE_NOEUD_EN_OCTET = 130;
 		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
-
 		List<Stagiaire> stagiaireRecherche = new ArrayList<>();
 		Boolean retour = false;
-		while (retour = false) {
-			Node newNode = litUnNodeDuFichier(raf);
-			if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) < 0) {
-				if (newNode.getLeft() == -1) {
-					retour = true;
-				} else {
-					raf.seek(newNode.getLeft() * 176);
-				}
-			} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) > 0) {
-				if (newNode.getRight() == -1) {
-					retour = true;
-				} else {
-					raf.seek(newNode.getRight() * 176);
-				}
-			} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) == 0) {
-				stagiaireRecherche.add(newNode.getValue());
-				if (newNode.getDoublon() == -1) {
-					retour = true;
-				} else {
-					raf.seek(newNode.getDoublon() * 176);
-				}
-			}
+		while (retour == false) {
+		Node newNode = litUnNodeDuFichier(raf);
+		if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) > 0) {
+		if (newNode.getLeft() == -1) {
+		retour = true;
+		} else {
+			
+		raf.seek(newNode.getLeft() * TAILLE_NOEUD_EN_OCTET);
 		}
-
+		} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) < 0) {
+		if (newNode.getRight() == -1) {
+		retour = true;
+		} else {
+		raf.seek(newNode.getRight() * TAILLE_NOEUD_EN_OCTET);
+		}
+		} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) == 0) {
+		stagiaireRecherche.add(newNode.getValue());
+		if (newNode.getDoublon() == -1) {
+		retour = true;
+		} else {
+		
+		raf.seek(newNode.getDoublon() *TAILLE_NOEUD_EN_OCTET);
+		}
+		}
+		}
+		
 		return stagiaireRecherche;
-	}
-
+		}
+	
 	public void ecrireUnNode(Stagiaire stagiaireAjout, RandomAccessFile raf) throws IOException {
 		raf.writeChars(stagiaireAjout.getNom());
 		raf.writeChars(stagiaireAjout.getPrenom());
@@ -180,5 +170,24 @@ public class BinToList {
 		raf.writeInt(-1);
 		raf.writeInt(-1);
 	}
-
+	public List<Stagiaire> rechercheMultiple (String nomChercher,String prenom,String departement,String formation,int annee) throws IOException{
+		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
+		List<Stagiaire> resultats = new ArrayList<>();
+		Node noeudCourant = litUnNodeDuFichier(raf);
+		while (raf.getFilePointer()<raf.length()) {
+		if ((nomChercher!=null)||(nomChercher!=noeudCourant.getValue().getNom())&&(prenom!=null)||(prenom!=noeudCourant.getValue().getPrenom())
+				&&(departement!=null)||(departement!=noeudCourant.getValue().getDepartement())&&(formation!=null)||(formation!=noeudCourant.getValue().getPromotion())
+				&&(annee!=0)||(annee!=noeudCourant.getValue().getAnneeFormation())) {
+			noeudCourant = litUnNodeDuFichier(raf);
+		}else {
+			resultats.add(noeudCourant.getValue());
+			noeudCourant = litUnNodeDuFichier(raf);
+		}
+		}
+		return resultats;
+		
+	}	
 }
+
+	
+	
