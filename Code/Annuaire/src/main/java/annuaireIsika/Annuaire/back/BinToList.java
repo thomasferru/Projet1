@@ -123,32 +123,43 @@ public class BinToList {
 			}
 		}
 	}
-	// public List<Stagiaire> Recherche (Nom nomChercher){
-	// je creer un RandomAcceFiles
-	// je creer un lise de stagiaire
-	// Je creer un booleans pour savoir quand arreter la boucle et le met en false
-	// tant que false
-	// je litUnNodeDuFichier avec la methode en haut
-	// si le nom (getValue().getNom()) est plus petit que le nomChercher
-	// Si la valeur gauche (getValue().getLeft()) est -1
-	// je passe le bolleans en true
-	// sinon
-	// je met la raf a (getValue().getLeft())*176
-	// si le nom (getValue().getNom()) est plus grand que le nomChercher
-	// Si la valeur droit (getValue().getRight()) est -1
-	// je passe le bolleans en true
-	// sinon
-	// je met la raf a (getValue().getLeft())*176
-	// si le nom (getValue().getNom()) est egale au nomChercher
-	// je met le stagiaire dans la liste
-	// si (getValue().getDouble())!=-1
-	// je met la raf a (getValue().getDouble())*176
-	// sinon
-	// je passe le boleans en true
-	// je renvoie la liste
-
-	// }
-
+	
+	
+	
+	public List<Stagiaire> Rechercher(String nomChercher) throws IOException {
+		int TAILLE_NOEUD_EN_OCTET = 130;
+		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
+		List<Stagiaire> stagiaireRecherche = new ArrayList<>();
+		Boolean retour = false;
+		while (retour == false) {
+		Node newNode = litUnNodeDuFichier(raf);
+		if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) > 0) {
+		if (newNode.getLeft() == -1) {
+		retour = true;
+		} else {
+			
+		raf.seek(newNode.getLeft() * TAILLE_NOEUD_EN_OCTET);
+		}
+		} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) < 0) {
+		if (newNode.getRight() == -1) {
+		retour = true;
+		} else {
+		raf.seek(newNode.getRight() * TAILLE_NOEUD_EN_OCTET);
+		}
+		} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) == 0) {
+		stagiaireRecherche.add(newNode.getValue());
+		if (newNode.getDoublon() == -1) {
+		retour = true;
+		} else {
+		
+		raf.seek(newNode.getDoublon() *TAILLE_NOEUD_EN_OCTET);
+		}
+		}
+		}
+		
+		return stagiaireRecherche;
+		}
+	
 	public void ecrireUnNode(Stagiaire stagiaireAjout, RandomAccessFile raf) throws IOException {
 		raf.writeChars(stagiaireAjout.getNom());
 		raf.writeChars(stagiaireAjout.getPrenom());
