@@ -85,7 +85,7 @@ public class BinToList {
 		RandomAccessFile rafs = new RandomAccessFile("example.bin", "rw");
 		int tailleFichierAvantAjout = (int) rafs.length();
 		while (rafs.length() == tailleFichierAvantAjout) {
-			System.out.println(tailleFichierAvantAjout);
+			
 			Node buffer = litUnNodeDuFichier(rafs);
 			if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) < 0) {
 				if (buffer.getLeft() == -1) {

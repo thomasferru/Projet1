@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 
 public class TableV extends VBox {
@@ -27,21 +28,18 @@ public class TableV extends VBox {
 		tree = new BinaryTree(new Stagiaire(null, null, null, null, 0));
 
 		TableView<Stagiaire> tableView = new TableView<>();
+		
 
 		// test
 		
 
 		BinToList test = new BinToList(); 
 		List<Stagiaire> testt = test.binToList();
-
 		
-		BinToList listFromBinFile = new BinToList();
-		Stagiaire aaa = new Stagiaire("bbbb", "aa",  "aa",  "aa", 0);
-		aaa.setStagiaireTailleOctets();
-		listFromBinFile.ajouterUnStagiaireAuFichier(aaa);
-		System.out.println(listFromBinFile.Rechercher("ROIGNANT              "));
 		
-
+		
+		
+		
 //		listFromBinFile.ajouterUnStagiaireAuFichier("aaa");
 
 		if (connect == true) {
@@ -60,6 +58,7 @@ public class TableV extends VBox {
 			TableColumn<Stagiaire, String> nameColumn = new TableColumn<>("Nom");
 			nameColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
 			nameColumn.setPrefWidth(nameCellWidth);
+			
 
 			TableColumn<Stagiaire, String> prenomColumn = new TableColumn<>("Prénom");
 			prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
