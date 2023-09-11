@@ -82,6 +82,19 @@ public class LeftPart extends VBox {
 
 			btnRetour.setOpacity(1.0);
 		});
+		btnRetour.setOnAction(event ->{
+			BinToList test;
+			try {
+				test = new BinToList();
+				List<Stagiaire> resultatRecherche = test.binToList();
+				System.out.println("test"+ resultatRecherche);
+				mainBorderPane.setCenter(new CenterPart(mainBorderPane, mainBorderPane.isConnect(), resultatRecherche));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		});
 
 		searchVB.getChildren().addAll(lb, txtFieldNom, btnValider, btnRetour);
 		this.getChildren().addAll(searchVB);
@@ -90,24 +103,5 @@ public class LeftPart extends VBox {
 		this.setAlignment(Pos.CENTER);
 		this.setPadding(new Insets(24));
 
-//		btnValider.setOnAction(new EventHandler<ActionEvent>() {
-//
-//			@Override
-//			public void handle(ActionEvent event) {
-//				String nomRechercher = txtFieldNom.getText();
-//				while (nomRechercher.length() < 22) {
-//					nomRechercher += " ";
-//				}
-//				try {
-//					BinToList test = new BinToList();
-//					System.out.println(test.Rechercher(nomRechercher));
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//
-////				adminLbl.setTextFill(Color.RED);
-//			}
-//		});
 	}
 }

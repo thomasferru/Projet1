@@ -19,7 +19,7 @@ public class MainBorderPane extends BorderPane {
 		list = test.binToList();
 
 		LeftPart leftPart = new LeftPart(this);
-		TestRight rightPart = new TestRight(this, this.connect);
+		RightPart rightPart = new RightPart(this, this.connect);
 		CenterPart centerPart = new CenterPart(this, this.connect, list);
 
 		this.setLeft(leftPart);
