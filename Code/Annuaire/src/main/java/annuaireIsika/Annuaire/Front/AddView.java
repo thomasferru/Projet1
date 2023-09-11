@@ -28,6 +28,10 @@ import javafx.stage.Stage;
  */
 
 public class AddView extends VBox {
+
+
+
+
 	public AddView() {
 		super(24);
 
@@ -50,21 +54,26 @@ public class AddView extends VBox {
 		txtFieldPrenom.setPromptText("Prénom");
 		txtFieldPrenom.setPrefWidth(150);
 
+
+
 		TextField txtFieldDepartement = new TextField();
 		txtFieldDepartement.setFont(fontTxtField);
 		txtFieldDepartement.setPromptText("Département");
 		txtFieldDepartement.setPrefWidth(150);
+
 
 		TextField txtFieldClasse = new TextField();
 		txtFieldClasse.setFont(fontTxtField);
 		txtFieldClasse.setPromptText("Classe");
 		txtFieldClasse.setPrefWidth(150);
 
+
 		TextField txtFieldAnneEntreeFormation = new TextField();
 		txtFieldAnneEntreeFormation.setFont(fontTxtField);
 		txtFieldAnneEntreeFormation.setPromptText("Entrée en formation");
 		txtFieldAnneEntreeFormation.setPrefWidth(150);
-		
+
+
 		/** On crée une Hbox dans laquelle on ajoute un bouton
 		 * on met en place l'action qu'on voudrait losqu'on clique sur le bouton.
 		 */
@@ -77,6 +86,12 @@ public class AddView extends VBox {
 		btnValider.setStyle("-fx-background-color: F8C822;");
 		btnValider.setPrefWidth(150);
 		btnValider.setOnAction(event -> {
+			String nom = txtFieldNom.getText();
+			String prenom = txtFieldPrenom.getText();
+			String departement= txtFieldDepartement.getText();
+			String classe= txtFieldClasse.getText();
+			String anneeEntree= txtFieldAnneEntreeFormation.getText();
+			System.out.println(nom+prenom+departement+classe+anneeEntree);
 
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Satagiaire ajouté");

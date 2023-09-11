@@ -2,10 +2,13 @@ package annuaireIsika.Annuaire.Front.BorderPane;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import annuaireIsika.Annuaire.Front.AddView;
 import annuaireIsika.Annuaire.Front.GeneratePDF;
 import annuaireIsika.Annuaire.Front.TableV;
+import annuaireIsika.Annuaire.back.BinToList;
+import annuaireIsika.Annuaire.back.Stagiaire;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -24,16 +27,20 @@ import javafx.stage.Stage;
 public class CenterPart extends VBox {
 	private boolean connect;
 	private MainBorderPane mainBorderPane;
+	private List<Stagiaire> list;
 
-	public CenterPart(MainBorderPane mainBorderPane,boolean connect) throws IOException {
+	public CenterPart(MainBorderPane mainBorderPane,boolean connect,List<Stagiaire> list ) throws IOException {
 		super();
 		this.connect = connect;
+		this.list = list;
+
+
 		Label h1 = new Label("STAGIAIRES ISIKA");
 		Font fontH1 = Font.loadFont(getClass().getResource("/font/OpenSans-Bold.ttf").toExternalForm(), 34);
 		h1.setFont(fontH1);
 
 		VBox tbvContainer = new VBox();
-		TableV tbView = new TableV(this.connect);
+		TableV tbView = new TableV(this.connect, list);
 //		TableV tbView = new TableV();
 		tbvContainer.getChildren().addAll(tbView);
 
@@ -76,8 +83,8 @@ public class CenterPart extends VBox {
 				alert.showAndWait();
 			}
 		});
-		
-		
+
+
 		Button addBtn = new Button("Ajouter");
 		addBtn.setFont(fontBtn);
 		addBtn.setStyle("-fx-background-color: #272A33;");
@@ -92,7 +99,7 @@ public class CenterPart extends VBox {
 
 			addBtn.setOpacity(1.0);
 		});
-		
+
 		addBtn.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -101,7 +108,7 @@ public class CenterPart extends VBox {
 //				adminLbl.setTextFill(Color.RED);
 			}
 		});
-		
+
 		btnsContainer.getChildren().addAll(addBtn, btnPdf);
 		btnsContainer.setAlignment(Pos.CENTER);
 
@@ -112,7 +119,7 @@ public class CenterPart extends VBox {
 		}else {
 			container.getChildren().addAll(h1, tbvContainer);
 		}
-		
+
 		container.setAlignment(Pos.CENTER);
 
 		this.setAlignment(Pos.CENTER);

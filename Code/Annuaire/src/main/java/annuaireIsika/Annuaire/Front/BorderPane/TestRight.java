@@ -156,20 +156,45 @@ public class TestRight extends BorderPane {
 		btnValider.setFont(fontlbl);
 		btnValider.setStyle("-fx-background-color: #F8C822;");
 		btnValider.setPrefWidth(150);
+		btnValider.setOnMousePressed(event -> {
+
+			btnValider.setOpacity(0.5);
+		});
+
+		btnValider.setOnMouseReleased(event -> {
+
+			btnValider.setOpacity(1.0);
+		});
+
+
+		Button btnRetour = new Button("Retour");
+		btnRetour.setFont(fontlbl);
+		btnRetour.setStyle("-fx-background-color: #ffffff;");
+		btnRetour.setTextFill(Color.web("#272A33"));
+		btnRetour.setPrefWidth(150);
+		btnRetour.setOnMousePressed(event -> {
+
+			btnRetour.setOpacity(0.5);
+		});
+
+		btnRetour.setOnMouseReleased(event -> {
+
+			btnRetour.setOpacity(1.0);
+		});
 
 		searchVB.getChildren().addAll(lb, txtFieldNom, txtFieldPrenom, txtFieldDepartement, txtFieldClasse,
-				txtFieldAnneEntreeFormation, btnValider);
+				txtFieldAnneEntreeFormation, btnValider, btnRetour);
 		// fin
 		this.setCenter(searchVB);
 
 		this.setStyle("-fx-background-color: #272A33;");
 		this.setPrefWidth(224);
 		this.setPadding(new Insets(24));
-		
+
 		btnValider.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-			
+
 			String nom = txtFieldNom.getText();
 			String prenom = txtFieldPrenom.getText();
 			String departement = txtFieldDepartement.getText();
@@ -194,8 +219,8 @@ public class TestRight extends BorderPane {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+
+
 			}});
 
 	}
