@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BinToList {
 	// private RandomAccessFile rafs;
-	 
+
 
 	public BinToList() throws IOException {
 		super();
@@ -20,11 +20,11 @@ public class BinToList {
 	 *
 	 *
 	 * @return Une observable liste de stagiaire
-	 * @throws InterruptedException 
+	 * @throws InterruptedException
 	 */
 	public List<Stagiaire> binToList(){
 		List<Stagiaire> stagiairesList = new ArrayList<>();
-		
+
 
 		try {
 			RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
@@ -35,11 +35,11 @@ public class BinToList {
 			}
 			raf.close();
 			System.out.println(stagiairesList);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
+
 		return stagiairesList;
 	}
 
@@ -53,10 +53,10 @@ public class BinToList {
 		// le poiteur doit etre au debut de la node
 		Stagiaire buffer = new Stagiaire(null, null, null, null, 0);
 		Node result = new Node(buffer);
-		result.getValue().setNom(readString(raf, Stagiaire.TAILLE_NOM));
-		result.getValue().setPrenom(readString(raf, Stagiaire.TAILLE_PRENOM));
-		result.getValue().setDepartement(readString(raf, Stagiaire.TAILLE_DPT));
-		result.getValue().setPromotion(readString(raf, Stagiaire.TAILLE_PROMO));
+		result.getValue().setNom(readString(raf, Stagiaire.TAILLE_NOM).trim());
+		result.getValue().setPrenom(readString(raf, Stagiaire.TAILLE_PRENOM).trim());
+		result.getValue().setDepartement(readString(raf, Stagiaire.TAILLE_DPT).trim());
+		result.getValue().setPromotion(readString(raf, Stagiaire.TAILLE_PROMO).trim());
 		result.getValue().setAnneeFormation(raf.readInt());
 		result.setLeft(raf.readInt());
 		result.setRight(raf.readInt());
@@ -85,7 +85,7 @@ public class BinToList {
 		RandomAccessFile rafs = new RandomAccessFile("example.bin", "rw");
 		int tailleFichierAvantAjout = (int) rafs.length();
 		while (rafs.length() == tailleFichierAvantAjout) {
-			
+
 			Node buffer = litUnNodeDuFichier(rafs);
 			if (buffer.getValue().getNom().compareToIgnoreCase(stagiaireAjouter.getNom()) < 0) {
 				if (buffer.getLeft() == -1) {
@@ -123,9 +123,9 @@ public class BinToList {
 			}
 		}
 	}
-	
-	
-	
+
+
+
 	public List<Stagiaire> Rechercher(String nomChercher) throws IOException {
 		int TAILLE_NOEUD_EN_OCTET = 130;
 		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
@@ -137,7 +137,7 @@ public class BinToList {
 		if (newNode.getLeft() == -1) {
 		retour = true;
 		} else {
-			
+
 		raf.seek(newNode.getLeft() * TAILLE_NOEUD_EN_OCTET);
 		}
 		} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) < 0) {
@@ -151,15 +151,15 @@ public class BinToList {
 		if (newNode.getDoublon() == -1) {
 		retour = true;
 		} else {
-		
+
 		raf.seek(newNode.getDoublon() *TAILLE_NOEUD_EN_OCTET);
 		}
 		}
 		}
-		
+
 		return stagiaireRecherche;
 		}
-	
+
 	public void ecrireUnNode(Stagiaire stagiaireAjout, RandomAccessFile raf) throws IOException {
 		raf.writeChars(stagiaireAjout.getNom());
 		raf.writeChars(stagiaireAjout.getPrenom());
@@ -185,14 +185,14 @@ public class BinToList {
 			resultats.add(noeudCourant.getValue());
 			noeudCourant = litUnNodeDuFichier(raf);
 		}else {
-			
+
 			noeudCourant = litUnNodeDuFichier(raf);
 		}
 		}
 		return resultats;
-		
-	}	
+
+	}
 }
 
-	
-	
+
+

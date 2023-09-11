@@ -7,11 +7,9 @@ import annuaireIsika.Annuaire.back.BinToList;
 import annuaireIsika.Annuaire.back.BinaryTree;
 import annuaireIsika.Annuaire.back.Stagiaire;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.VBox;
 
 public class TableV extends VBox {
@@ -22,24 +20,24 @@ public class TableV extends VBox {
 
 	private BinaryTree tree;
 
-	public TableV(boolean connect) throws IOException {
+	public TableV(boolean connect,List<Stagiaire> list ) throws IOException {
 		super();
 		this.connect = connect;
 		tree = new BinaryTree(new Stagiaire(null, null, null, null, 0));
 
 		TableView<Stagiaire> tableView = new TableView<>();
-		
+
 
 		// test
-		
 
-		BinToList test = new BinToList(); 
-		List<Stagiaire> testt = test.binToList();
-		
-		
-		
-		
-		
+
+//		BinToList test = new BinToList();
+//		List<Stagiaire> testt = test.binToList();
+
+
+
+
+
 //		listFromBinFile.ajouterUnStagiaireAuFichier("aaa");
 
 		if (connect == true) {
@@ -58,7 +56,7 @@ public class TableV extends VBox {
 			TableColumn<Stagiaire, String> nameColumn = new TableColumn<>("Nom");
 			nameColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
 			nameColumn.setPrefWidth(nameCellWidth);
-			
+
 
 			TableColumn<Stagiaire, String> prenomColumn = new TableColumn<>("Prénom");
 			prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
@@ -84,7 +82,7 @@ public class TableV extends VBox {
 			tableView.getColumns().add(promoColumn);
 			tableView.getColumns().add(anneEntreeColumn);
 
-			tableView.setItems(FXCollections.observableArrayList(testt));
+			tableView.setItems(FXCollections.observableArrayList(list));
 			this.getChildren().add(tableView);
 
 		} else {
@@ -114,8 +112,8 @@ public class TableV extends VBox {
 			tableView.getColumns().add(depColumn);
 			tableView.getColumns().add(promoColumn);
 			tableView.getColumns().add(anneEntreeColumn);
-			
-			tableView.setItems(FXCollections.observableArrayList(testt));
+
+			tableView.setItems(FXCollections.observableArrayList(list));
 			this.getChildren().add(tableView);
 		}
 	}
