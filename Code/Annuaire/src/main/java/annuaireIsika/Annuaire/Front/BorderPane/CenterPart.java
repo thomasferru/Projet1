@@ -104,7 +104,7 @@ public class CenterPart extends VBox {
 
 			@Override
 			public void handle(ActionEvent event) {
-				mainBorderPane.setCenter(new AddView());
+				mainBorderPane.setCenter(new AddView(mainBorderPane));
 //				adminLbl.setTextFill(Color.RED);
 			}
 		});

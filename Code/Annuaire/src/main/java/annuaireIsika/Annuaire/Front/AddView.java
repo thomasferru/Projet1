@@ -2,8 +2,12 @@ package annuaireIsika.Annuaire.Front;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
+import annuaireIsika.Annuaire.Front.BorderPane.CenterPart;
 import annuaireIsika.Annuaire.Front.BorderPane.MainBorderPane;
+import annuaireIsika.Annuaire.back.BinToList;
+import annuaireIsika.Annuaire.back.Stagiaire;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -32,7 +36,7 @@ public class AddView extends VBox {
 
 
 
-	public AddView() {
+	public AddView(MainBorderPane mainBorderPane) {
 		super(24);
 
 		VBox addFields = new VBox(24);
@@ -90,8 +94,27 @@ public class AddView extends VBox {
 			String prenom = txtFieldPrenom.getText();
 			String departement= txtFieldDepartement.getText();
 			String classe= txtFieldClasse.getText();
-			String anneeEntree= txtFieldAnneEntreeFormation.getText();
+			int anneeEntree= Integer.parseInt(txtFieldAnneEntreeFormation.getText());
 			System.out.println(nom+prenom+departement+classe+anneeEntree);
+			Stagiaire stagiaiareAjout = new Stagiaire(nom, prenom, departement, classe, anneeEntree);
+			stagiaiareAjout.setStagiaireTailleOctets();
+			try {
+				BinToList buffer = new BinToList();
+				buffer.ajouterUnStagiaireAuFichier(stagiaiareAjout);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			BinToList test;
+			try {
+				test = new BinToList();
+				List<Stagiaire> resultatRecherche = test.binToList();
+				mainBorderPane.setCenter(new CenterPart(mainBorderPane, mainBorderPane.isConnect(), resultatRecherche));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Satagiaire ajouté");

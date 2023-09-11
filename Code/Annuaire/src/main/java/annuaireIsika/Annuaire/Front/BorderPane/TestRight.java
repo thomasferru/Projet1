@@ -194,31 +194,24 @@ public class TestRight extends BorderPane {
 		btnValider.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-
+				
 			String nom = txtFieldNom.getText();
 			String prenom = txtFieldPrenom.getText();
 			String departement = txtFieldDepartement.getText();
 			String promo = txtFieldClasse.getText();
-			while (nom.length()<22 ) {
-				nom+=" ";
-			}
-			while (prenom.length()<20 ) {
-				prenom+=" ";
-			}
-			while (departement.length()<3 ) {
-				departement+=" ";
-			}
-			while (promo.length()<12 ) {
-				promo+=" ";
-			}
-			System.out.println(nom);
+			int anneePromo;
+			if (txtFieldAnneEntreeFormation.getText().compareTo("")==0) {
+				anneePromo =0;
+			}else {
+			anneePromo = Integer.parseInt(txtFieldAnneEntreeFormation.getText());}
 			try {
 				BinToList test = new BinToList();
-				System.out.println( test.rechercheMultiple(nom,prenom,departement,promo,0));
+				System.out.println( test.rechercheMultiple(nom,prenom,departement,promo,anneePromo));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 
 
 			}});
