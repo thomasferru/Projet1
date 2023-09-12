@@ -1,5 +1,9 @@
 package annuaireIsika.Annuaire.Front;
 
+import java.io.IOException;
+import java.util.EventListener;
+
+import annuaireIsika.Annuaire.back.BinToList;
 import annuaireIsika.Annuaire.back.Stagiaire;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -9,7 +13,7 @@ import javafx.scene.image.ImageView;
 public class EditButtonCell extends TableCell<Stagiaire, Void> {
 	private final Button editButton;
 
-	public EditButtonCell() {
+	public EditButtonCell(TableV table) {
 
 		this.editButton = new Button();
 		editButton.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
@@ -31,11 +35,27 @@ public class EditButtonCell extends TableCell<Stagiaire, Void> {
 			editButton.setOpacity(1.0);
 		});
 
-		editButton.setOnAction(event -> {
-			System.out.println("test");
-		});
+	    editButton.setOnAction(event -> {
+	    	Stagiaire currentStagiaire = getTableView().getItems().get(getIndex());
+	    	System.out.println("selected item" + getTableView().getSelectionModel().getSelectedItem());
+	    	System.out.println(table.newPrenom);
+
+//	    	table.tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+//	    		System.out.println(newValue);
+//	    	}  	);
+	    	try {
+				BinToList test = new BinToList();
+				test.test(currentStagiaire, currentStagiaire);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+	    });
 	}
-// je ne sais pas a quoi ca sert 
+
+// je ne sais pas a quoi ca sert
 	@Override
 	protected void updateItem(Void item, boolean empty) {
 		super.updateItem(item, empty);
