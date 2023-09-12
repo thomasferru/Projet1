@@ -62,6 +62,7 @@ public class BinToList {
 		return result;
 	}
 
+
 	/**
 	 * Cette méthode lit une chiane de caractere d'un fichier bianire.
 	 *
