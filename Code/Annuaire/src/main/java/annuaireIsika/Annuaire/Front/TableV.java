@@ -23,6 +23,10 @@ public class TableV extends VBox {
 	public TableColumn<Stagiaire, String> prenomColumn;
 	public TableView<Stagiaire> tableView;
 	public String  newPrenom ="";
+	public String  newDep ="";
+	public String  newClass ="";
+	public int  newAnnee =0;
+
 
 	private BinaryTree tree;
 
@@ -83,18 +87,30 @@ public class TableV extends VBox {
 			depColumn.setPrefWidth(intCellWidth);
 			depColumn.setEditable(true);
 			depColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+			depColumn.setOnEditCommit(event -> {
+				System.out.println(event.getNewValue());
+				newDep = event.getNewValue();
+			});
 
 			TableColumn<Stagiaire, String> promoColumn = new TableColumn<>("Pomotion");
 			promoColumn.setCellValueFactory(new PropertyValueFactory<>("promotion"));
 			promoColumn.setPrefWidth(promoCellWidth);
 			promoColumn.setEditable(true);
 			promoColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+			promoColumn.setOnEditCommit(event -> {
+				System.out.println(event.getNewValue());
+				newClass = event.getNewValue();
+			});
 
 			TableColumn<Stagiaire, Integer> anneEntreeColumn = new TableColumn<>("Année d'entrée");
 			anneEntreeColumn.setCellValueFactory(new PropertyValueFactory<>("anneeFormation"));
 			anneEntreeColumn.setPrefWidth(intCellWidth);
 			anneEntreeColumn.setEditable(true);
 			anneEntreeColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+			anneEntreeColumn.setOnEditCommit(event -> {
+				System.out.println(event.getNewValue());
+				newAnnee = event.getNewValue();
+			});
 
 
 			tableView.getColumns().add(editButtonColumn);
