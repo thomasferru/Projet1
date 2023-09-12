@@ -8,7 +8,6 @@ import java.util.List;
 public class BinToList {
 	// private RandomAccessFile rafs;
 
-
 	public BinToList() throws IOException {
 		super();
 		// rafs = new RandomAccessFile("example.bin", "rw");
@@ -22,9 +21,8 @@ public class BinToList {
 	 * @return Une observable liste de stagiaire
 	 * @throws InterruptedException
 	 */
-	public List<Stagiaire> binToList(){
+	public List<Stagiaire> binToList() {
 		List<Stagiaire> stagiairesList = new ArrayList<>();
-
 
 		try {
 			RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
@@ -124,41 +122,39 @@ public class BinToList {
 		}
 	}
 
-
-
 	public List<Stagiaire> Rechercher(String nomChercher) throws IOException {
 		int TAILLE_NOEUD_EN_OCTET = 130;
 		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
 		List<Stagiaire> stagiaireRecherche = new ArrayList<>();
 		Boolean retour = false;
 		while (retour == false) {
-		Node newNode = litUnNodeDuFichier(raf);
-		if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) > 0) {
-		if (newNode.getLeft() == -1) {
-		retour = true;
-		} else {
+			Node newNode = litUnNodeDuFichier(raf);
+			if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) > 0) {
+				if (newNode.getLeft() == -1) {
+					retour = true;
+				} else {
 
-		raf.seek(newNode.getLeft() * TAILLE_NOEUD_EN_OCTET);
-		}
-		} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) < 0) {
-		if (newNode.getRight() == -1) {
-		retour = true;
-		} else {
-		raf.seek(newNode.getRight() * TAILLE_NOEUD_EN_OCTET);
-		}
-		} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) == 0) {
-		stagiaireRecherche.add(newNode.getValue());
-		if (newNode.getDoublon() == -1) {
-		retour = true;
-		} else {
+					raf.seek(newNode.getLeft() * TAILLE_NOEUD_EN_OCTET);
+				}
+			} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) < 0) {
+				if (newNode.getRight() == -1) {
+					retour = true;
+				} else {
+					raf.seek(newNode.getRight() * TAILLE_NOEUD_EN_OCTET);
+				}
+			} else if (newNode.getValue().getNom().compareToIgnoreCase(nomChercher) == 0) {
+				stagiaireRecherche.add(newNode.getValue());
+				if (newNode.getDoublon() == -1) {
+					retour = true;
+				} else {
 
-		raf.seek(newNode.getDoublon() *TAILLE_NOEUD_EN_OCTET);
-		}
-		}
+					raf.seek(newNode.getDoublon() * TAILLE_NOEUD_EN_OCTET);
+				}
+			}
 		}
 
 		return stagiaireRecherche;
-		}
+	}
 
 	public void ecrireUnNode(Stagiaire stagiaireAjout, RandomAccessFile raf) throws IOException {
 		raf.writeChars(stagiaireAjout.getNom());
@@ -170,28 +166,55 @@ public class BinToList {
 		raf.writeInt(-1);
 		raf.writeInt(-1);
 	}
-	public List<Stagiaire> rechercheMultiple (String nomChercher,String prenom,String departement,String formation,int annee) throws IOException{
+
+	public List<Stagiaire> rechercheMultiple(String nomChercher, String prenom, String departement, String formation,
+			int annee) throws IOException {
 		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
 		List<Stagiaire> resultats = new ArrayList<>();
 		Node noeudCourant = litUnNodeDuFichier(raf);
 		String nomVide = "";
 		String prenomVIde = "";
-		String depVide= "";
+		String depVide = "";
 		String promoVode = "";
-		while (raf.getFilePointer()<raf.length()) {
-		if (((nomChercher.compareTo(nomVide)==0)||(nomChercher.compareTo(noeudCourant.getValue().getNom()))==0)&&((prenom.compareTo(prenomVIde)==0)||(prenom.compareTo(noeudCourant.getValue().getPrenom()))==0)
-				&&((departement.compareTo(depVide)==0)||(departement.compareTo(noeudCourant.getValue().getDepartement()))==0)&&((formation.compareTo(promoVode)==0)||(formation.compareTo(noeudCourant.getValue().getPromotion())
-				)==0)&&((annee==0)||(annee==noeudCourant.getValue().getAnneeFormation()))) {
-			resultats.add(noeudCourant.getValue());
-			noeudCourant = litUnNodeDuFichier(raf);
-		}else {
-			noeudCourant = litUnNodeDuFichier(raf);
-		}
+		while (raf.getFilePointer() < raf.length()) {
+			if (((nomChercher.compareTo(nomVide) == 0)
+					|| (nomChercher.compareTo(noeudCourant.getValue().getNom())) == 0)
+					&& ((prenom.compareTo(prenomVIde) == 0)
+							|| (prenom.compareTo(noeudCourant.getValue().getPrenom())) == 0)
+					&& ((departement.compareTo(depVide) == 0)
+							|| (departement.compareTo(noeudCourant.getValue().getDepartement())) == 0)
+					&& ((formation.compareTo(promoVode) == 0)
+							|| (formation.compareTo(noeudCourant.getValue().getPromotion())) == 0)
+					&& ((annee == 0) || (annee == noeudCourant.getValue().getAnneeFormation()))) {
+				resultats.add(noeudCourant.getValue());
+				noeudCourant = litUnNodeDuFichier(raf);
+			} else {
+				noeudCourant = litUnNodeDuFichier(raf);
+			}
 		}
 		return resultats;
 
 	}
+
+	public void test(Stagiaire stagiaireAmodifier, Stagiaire stagiaireModifier) throws IOException {
+
+//		System.out.println(stagiaireAmodifier);
+//		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
+//		long currentPosition = 0;
+//
+//		while (currentPosition < raf.length()) {
+//			Node node = litUnNodeDuFichier(raf);
+//			if (node.getValue().getId() == stagiaireModifie.getId()) {
+//				raf.seek(currentPosition);
+//
+//				ecrireUnNode(stagiaireModifie, raf);
+//
+//				break;
+//			}
+//			currentPosition = raf.getFilePointer();
+//		}
+//
+//		raf.close();
+	}
+
 }
-
-
-
