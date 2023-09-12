@@ -37,14 +37,12 @@ public class EditButtonCell extends TableCell<Stagiaire, Void> {
 
 	    editButton.setOnAction(event -> {
 	    	Stagiaire currentStagiaire = getTableView().getItems().get(getIndex());
-	    	System.out.println("selected item" + getTableView().getSelectionModel().getSelectedItem());
-	    	System.out.println(table.newPrenom);
 	    	Stagiaire editOne = new Stagiaire(getTableView().getItems().get(getIndex()).getNom(), table.newPrenom, table.newDep, table.newClass, table.newAnnee);
-	    	System.out.println(editOne);
+	    	
 
 	    	try {
 				BinToList test = new BinToList();
-				test.test(currentStagiaire, currentStagiaire);
+				test.modificationStagiaire(currentStagiaire, editOne);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

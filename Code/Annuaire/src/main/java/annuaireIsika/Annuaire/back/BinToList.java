@@ -196,25 +196,34 @@ public class BinToList {
 
 	}
 
-	public void test(Stagiaire stagiaireAmodifier, Stagiaire stagiaireModifier) throws IOException {
+	public void modificationStagiaire(Stagiaire stagiaireAmodifier, Stagiaire stagiaireModifier) throws IOException {
+		int TAILLE_NOEUD = 130;
+		
+		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
+		Node node = litUnNodeDuFichier(raf);
+	
+		
 
-//		System.out.println(stagiaireAmodifier);
-//		RandomAccessFile raf = new RandomAccessFile("example.bin", "rw");
-//		long currentPosition = 0;
-//
-//		while (currentPosition < raf.length()) {
-//			Node node = litUnNodeDuFichier(raf);
-//			if (node.getValue().getId() == stagiaireModifie.getId()) {
-//				raf.seek(currentPosition);
-//
-//				ecrireUnNode(stagiaireModifie, raf);
-//
-//				break;
-//			}
-//			currentPosition = raf.getFilePointer();
-//		}
-//
-//		raf.close();
+		while (raf.getFilePointer() < raf.length()) {
+			
+			if (node.getValue().getNom().equals((stagiaireAmodifier).getNom())&&(node.getValue().getPromotion().equals((stagiaireAmodifier).getPromotion()))) {
+				System.out.println("ici");
+				raf.seek(raf.getFilePointer()- TAILLE_NOEUD);
+				stagiaireModifier.setStagiaireTailleOctets();
+				ecrireUnNode(stagiaireModifier, raf);
+				break;
+
+	
+			}else {
+				node = litUnNodeDuFichier(raf);
+				System.out.println(node);
+
+
+			}
+			
+		}
+
+		raf.close();
 	}
 
 }
