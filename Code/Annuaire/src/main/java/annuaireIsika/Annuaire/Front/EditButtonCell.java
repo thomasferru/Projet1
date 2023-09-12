@@ -39,10 +39,9 @@ public class EditButtonCell extends TableCell<Stagiaire, Void> {
 	    	Stagiaire currentStagiaire = getTableView().getItems().get(getIndex());
 	    	System.out.println("selected item" + getTableView().getSelectionModel().getSelectedItem());
 	    	System.out.println(table.newPrenom);
+	    	Stagiaire editOne = new Stagiaire(getTableView().getItems().get(getIndex()).getNom(), table.newPrenom, table.newDep, table.newClass, table.newAnnee);
+	    	System.out.println(editOne);
 
-//	    	table.tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//	    		System.out.println(newValue);
-//	    	}  	);
 	    	try {
 				BinToList test = new BinToList();
 				test.test(currentStagiaire, currentStagiaire);
